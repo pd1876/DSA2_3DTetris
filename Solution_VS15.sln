@@ -73,7 +73,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex01_A", "Ex01_A\Ex01_A.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex01_B", "Ex01_B\Ex01_B.vcxproj", "{B1F0F215-F6DE-426D-8AB8-B85644569D5A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A08_Camera", "A08_Camera\E10_Projections.vcxproj", "{91E79698-AE9C-4A11-ACE8-2E5D7CEBFBC6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3D_Tetris", "3D_Tetris\3D_Tetris.vcxproj", "{91E79698-AE9C-4A11-ACE8-2E5D7CEBFBC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
