@@ -16,9 +16,9 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 	//creating bounding spheres for both models
-	m_pBS0 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Zombie"));
-	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Steve"));
-	m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
+	m_pBS0 = new MyBoundingObjectClass(m_pMeshMngr->GetVertexList("Zombie"));
+	m_pBS1 = new MyBoundingObjectClass(m_pMeshMngr->GetVertexList("Steve"));
+	m_pBS2 = new MyBoundingObjectClass(m_pMeshMngr->GetVertexList("Cow"));
 
 	matrix4 m4Position = glm::translate(vector3(3.0, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");
@@ -57,36 +57,15 @@ void AppClass::Update(void)
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, "Zombie"); //set the matrix to the model
 	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Zombie"));
-	m_pBS0->RenderBox();//render the bounding box
-	m_pBS0->RenderVolumeBox(m_pMeshMngr->GetVertexList("Zombie")); // render the other bounding box - yeeeaaah
+	m_pBS0->RenderBox(REGREEN);//render the bounding box
 
 
 	m_pMeshMngr->SetModelMatrix(mTranslation, "Steve");
 	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
-	m_pBS1->RenderBox();
+	m_pBS1->RenderBox(REBLUE);
 
 	m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	m_pBS2->RenderBox();
-
-	m_pBS0->SetColliding(false);
-	m_pBS1->SetColliding(false);
-	m_pBS2->SetColliding(false);
-
-	if (m_pBS0->IsColliding(m_pBS1))
-	{
-		m_pBS0->SetColliding(true);
-		m_pBS1->SetColliding(true);
-	}
-	if (m_pBS0->IsColliding(m_pBS2))
-	{
-		m_pBS0->SetColliding(true);
-		m_pBS2->SetColliding(true);
-	}
-	if (m_pBS1->IsColliding(m_pBS2))
-	{
-		m_pBS1->SetColliding(true);
-		m_pBS2->SetColliding(true);
-	}
+	m_pBS2->RenderBox(REYELLOW);
 
 	if (fPercentage > 1.0f)
 	{
@@ -105,16 +84,6 @@ void AppClass::Update(void)
 	//Print info on the screen
 	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
-
-	m_pMeshMngr->Print("Radius: ");
-	m_pMeshMngr->PrintLine(std::to_string(m_pBS0->GetRadius()), RERED);
-	m_pMeshMngr->Print("Center: (");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().x), RERED);
-	m_pMeshMngr->Print(" , ");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().y), RERED);
-	m_pMeshMngr->Print(" , ");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().z), RERED);
-	m_pMeshMngr->PrintLine(")");
 
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
