@@ -12,6 +12,10 @@ private:
 	bool sphereColliding = false;
 	bool boxColliding = false;
 
+	vector3 v3Min;
+	vector3 v3Max;
+	vector3 v3Size;
+
 public:
 	// Constructor to take in the model vertex
 	MyBoundingObjectClass(std::vector<vector3> vertexList);
