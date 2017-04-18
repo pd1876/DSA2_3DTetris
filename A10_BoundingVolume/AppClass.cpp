@@ -57,15 +57,16 @@ void AppClass::Update(void)
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, "Zombie"); //set the matrix to the model
 	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Zombie"));
-	m_pBS0->RenderSphere();//render the bounding sphere
+	m_pBS0->RenderBox();//render the bounding box
+	m_pBS0->RenderVolumeBox(m_pMeshMngr->GetVertexList("Zombie")); // render the other bounding box - yeeeaaah
 
 
 	m_pMeshMngr->SetModelMatrix(mTranslation, "Steve");
 	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
-	m_pBS1->RenderSphere();
+	m_pBS1->RenderBox();
 
 	m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	m_pBS2->RenderSphere();
+	m_pBS2->RenderBox();
 
 	m_pBS0->SetColliding(false);
 	m_pBS1->SetColliding(false);

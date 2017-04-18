@@ -49,16 +49,12 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 
 	m_v3MinG = m_v3Min;
 	m_v3MaxG = m_v3Max;
-
-	//m_v3Size.x = glm::distance(vector3(m_v3Min.x, 0.0, 0.0), vector3(m_v3Max.x, 0.0, 0.0));
-	//m_v3Size.y = glm::distance(vector3(0.0, m_v3Min.y, 0.0), vector3(0.0, m_v3Max.y, 0.0));
-	//m_v3Size.z = glm::distance(vector3(0.0, 0.0, m_v3Min.z), vector3(0.0, 0.0, m_v3Max.z));
 }
 
-void MyBoundingBoxClass::RenderSphere()
+void MyBoundingBoxClass::RenderBox()
 {
 	vector3 v3Color = REGREEN;
-	if (true == m_bColliding)
+	if (m_bColliding)
 		v3Color = RERED;
 
 	m_pMeshMngr->AddCubeToRenderList(
@@ -67,18 +63,23 @@ void MyBoundingBoxClass::RenderSphere()
 		glm::scale(m_v3Size),
 		v3Color, WIRE);
 
-	// make new min and max for realigned box
-	vector3 p0;
-	vector3 p1;
-	vector3 p2;
-	vector3 p3;
-	vector3 p4;
-	vector3 p5;
-	vector3 p6;
-	vector3 p7;
 
-	// render new box
 }
+
+void MyBoundingBoxClass::RenderVolumeBox(std::vector<vector3> vertexList) {
+
+	vector3 v3Color = REBLUE;
+	if (m_bColliding)
+		v3Color = REYELLOW;
+
+	m_pMeshMngr->AddCubeToRenderList(
+		glm::translate(m_v3CenterGlobal) * 
+		glm::scale(m_v3Size),
+		v3Color, WIRE);
+
+	std::cout << vertexList[1].x;
+}
+
 void MyBoundingBoxClass::SetModelMatrix(matrix4 a_m4ToWorld)
 {
 	if (m_m4ToWorld == a_m4ToWorld)

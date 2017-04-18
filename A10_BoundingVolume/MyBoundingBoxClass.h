@@ -4,11 +4,11 @@
 class MyBoundingBoxClass
 {
 private:
-	float m_fRadius = 0.0f; //radius of the sphere
-	vector3 m_v3CenterLocal = vector3(0.0f); //center of the sphere in local space
-	vector3 m_v3CenterGlobal = vector3(0.0f); //center of the sphere in global space
+	float m_fRadius = 0.0f; //radius of the box
+	vector3 m_v3CenterLocal = vector3(0.0f); //center of the box in local space
+	vector3 m_v3CenterGlobal = vector3(0.0f); //center of the box in global space
 	matrix4 m_m4ToWorld = IDENTITY_M4; //matrix that takes you from local to global space
-	MeshManagerSingleton* m_pMeshMngr = nullptr; //for drawing the sphere
+	MeshManagerSingleton* m_pMeshMngr = nullptr; //for drawing the box
 	bool m_bColliding = false;
 
 	vector3 m_v3Max;
@@ -24,15 +24,15 @@ public:
 	*/
 	void SetColliding(bool input);
 	/*
-	Sets Center of the sphere in local space
+	Sets Center of the box in local space
 	*/
 	void SetCenterLocal(vector3 input);
 	/*
-	Sets Center of the sphere in global space
+	Sets Center of the box in global space
 	*/
 	void SetCenterGlobal(vector3 input);
 	/*
-	Sets the radius of the sphere
+	Sets the radius of the box
 	*/
 	void SetRadius(float input);
 
@@ -41,19 +41,19 @@ public:
 	*/
 	bool GetColliding(void);
 	/*
-	Gets center of the sphere in local space
+	Gets center of the box in local space
 	*/
 	vector3 GetCenterLocal(void);
 	/*
-	Gets center of the sphere in global space
+	Gets center of the box in global space
 	*/
 	vector3 GetCenterGlobal(void);
 	/*
-	Gets model to world matrix of the sphere
+	Gets model to world matrix of the box
 	*/
 	matrix4 GetModelMatrix(void);
 	/*
-	Gets radius of the sphere
+	Gets radius of the box
 	*/
 	float GetRadius(void);
 
@@ -62,9 +62,13 @@ public:
 	*/
 	MyBoundingBoxClass(std::vector<vector3> vertexList);
 	/*
-	Renders the sphere based on the radius and the center in global space
+	Renders the box based on the radius and the center in global space
 	*/
-	void RenderSphere();
+	void RenderBox();
+	/*
+	Renders a box based on the farthest points on the first box - excellent
+	*/
+	void RenderVolumeBox(std::vector<vector3> vertexList);
 	/*
 	Sets the transform from the local to world matrix
 	*/
