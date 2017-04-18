@@ -51,6 +51,11 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	m_v3MaxG = m_v3Max;
 }
 
+void MyBoundingBoxClass::CalculateReAlignedBoxVerts() {
+	vector3 diagonal = m_v3MaxG - m_v3MinG;
+
+
+}
 void MyBoundingBoxClass::RenderBox()
 {
 	vector3 v3Color = REGREEN;
@@ -72,9 +77,45 @@ void MyBoundingBoxClass::RenderVolumeBox(std::vector<vector3> vertexList) {
 	if (m_bColliding)
 		v3Color = REYELLOW;
 
+	for (int i = 0; i < vertexList.size(); i++)
+	{
+		if (m_v3MinG.x > vertexList[i].x)
+		{
+			m_v3MinG.x = vertexList[i].x;
+		}
+		else if (m_v3MaxG.x < vertexList[i].x)
+		{
+			m_v3MaxG.x = vertexList[i].x;
+		}
+
+
+
+		if (m_v3MinG.y > vertexList[i].y)
+		{
+			m_v3MinG.y = vertexList[i].y;
+		}
+		else if (m_v3MaxG.y < vertexList[i].y)
+		{
+			m_v3MaxG.y = vertexList[i].y;
+		}
+
+
+
+		if (m_v3MinG.z > vertexList[i].z)
+		{
+			m_v3MinG.z = vertexList[i].z;
+		}
+		else if (m_v3MaxG.z < vertexList[i].z)
+		{
+			m_v3MaxG.z = vertexList[i].z;
+		}
+	}
+
+	vector3 diag = m_v3MaxG - m_v3MinG;
+
 	m_pMeshMngr->AddCubeToRenderList(
 		glm::translate(m_v3CenterGlobal) * 
-		glm::scale(m_v3Size),
+		glm::scale(diag),
 		v3Color, WIRE);
 
 	std::cout << vertexList[1].x;

@@ -20,7 +20,11 @@ private:
 	vector3 m_v3SizeG;
 public:
 	/*
-	Sets Colliding
+	* Calculates ReAligned bounding box vertice
+	*/
+	void CalculateReAlignedBoxVerts();
+
+	/*Sets Colliding
 	*/
 	void SetColliding(bool input);
 	/*
