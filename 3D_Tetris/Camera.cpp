@@ -74,61 +74,50 @@ glm::mat4 MyCamera::GetProjection(bool bOrtho)
 	}
 }
 
-void MyCamera::SetPosition(vector3 newPos)
-{
+void MyCamera::SetPosition(vector3 newPos){
 	position = newPos;
 }
 
-vector3 MyCamera::GetPosition(void)
-{
+vector3 MyCamera::GetPosition(void){
 	return position;
 }
 
-void MyCamera::SetTarget(vector3 newTarget)
-{
+void MyCamera::SetTarget(vector3 newTarget){
 	target = newTarget;
 }
 
-void MyCamera::SetUp(vector3 newUp)
-{
+void MyCamera::SetUp(vector3 newUp){
 	up = newUp;
 }
 
-void MyCamera::MoveForward(float fIncrement)
-{
+void MyCamera::MoveForward(float fIncrement){
 	SetPosition((forward * fIncrement) + position);
 	//SetPosition(glm::vec3(position.x, position.y, position.z + fIncrement));
 }
 
-void MyCamera::MoveSideways(float fIncrement)
-{
+void MyCamera::MoveSideways(float fIncrement){
 	//SetPosition(glm::vec3(position.x + fIncrement, position.y, position.z));
 	SetPosition((right * fIncrement) + position);
 }
 
-void MyCamera::MoveVertical(float fIncrement)
-{
+void MyCamera::MoveVertical(float fIncrement){
 	//SetPosition(glm::vec3(position.x, position.y + fIncrement, position.z));
 	SetPosition((up * fIncrement) + position);
 }
 
-void MyCamera::ChangePitch(float fDegree)
-{
+void MyCamera::ChangePitch(float fDegree){
 	fPitch += fDegree;
 
 }
 
-void MyCamera::ChangeRoll(float fDegree)
-{
+void MyCamera::ChangeRoll(float fDegree){
 	fRoll += fDegree;
 }
 
-void MyCamera::ChangeYaw(float fDegree)
-{
+void MyCamera::ChangeYaw(float fDegree){
 	fYaw += fDegree;
 }
 
 
-MyCamera::~MyCamera()
-{
+MyCamera::~MyCamera(){
 }

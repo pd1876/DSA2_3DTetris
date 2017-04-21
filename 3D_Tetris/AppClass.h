@@ -7,6 +7,8 @@ Date: 2015/09
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
+#include "Box.h"
+#include "TetrisShape.h"
 #include "Camera.h"
 //#include <chrono>
 
@@ -15,6 +17,9 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 class AppClass : public ReEngAppClass
 {
 	PrimitiveClass* m_pCube = nullptr;
+
+	TetrisShape* testShape1 = nullptr;
+	Box* testBox1 = nullptr;
 
 	matrix4 m_m4Projection;
 	matrix4 m_m4View;
