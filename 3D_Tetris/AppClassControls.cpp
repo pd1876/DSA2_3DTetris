@@ -33,44 +33,48 @@ void AppClass::ProcessKeyboard(void)
 	}
 
 
-	//Change Pitch
+	/*//Change Pitch
 	if (cam1->mousedY > 0) {
 		cam1->ChangePitch(cam1->mousedY * cam1->mouseSensitivityVert);
 	}
 
 	if (cam1->mousedY < 0) {
 		cam1->ChangePitch(cam1->mousedY * cam1->mouseSensitivityVert);
-	}
+	}*/
 
 
 	//Forward / Backward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		cam1->MoveForward(0.2f);
+		testShape1->Translate(glm::vec3(0.0f, 0.05f, 0.0f));
+		//cam1->MoveForward(0.2f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		cam1->MoveForward(-0.2f);
+		testShape1->Translate(glm::vec3(0.0f, -0.05f, 0.0f));
+		//cam1->MoveForward(-0.2f);
 	}
 
 	//Right / Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		cam1->MoveSideways(0.2f);
+		testShape1->Translate(glm::vec3(-0.05f, 0.0f, 0.0f));
+		//cam1->MoveSideways(0.2f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		cam1->MoveSideways(-0.2f);
+		//cam1->MoveSideways(-0.2f);
+		testShape1->Translate(glm::vec3(0.05f, 0.0f, 0.0f));
 	}
 	
 	//Up / Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		cam1->MoveVertical(-0.2f);
+		//cam1->MoveVertical(-0.2f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		cam1->MoveVertical(0.2f);
+		//cam1->MoveVertical(0.2f);
 	}
 
 	//Changing Roll

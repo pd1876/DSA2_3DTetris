@@ -17,7 +17,8 @@ GameManager::GameManager()
 	leftPlaneTransform = glm::translate(leftPlaneTransform, glm::vec3(-6.0f, 0.0f, -6.0f));
 }
 
-
 GameManager::~GameManager()
 {
+
 }
+

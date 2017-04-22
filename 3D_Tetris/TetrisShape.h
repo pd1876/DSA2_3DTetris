@@ -9,7 +9,6 @@ class TetrisShape{
 		//std::vector<Box> boxes;
 
 		//Is this the shape that the player is currently controlling?
-		bool activeShape;
 
 		//This is gonna have to do for now.
 		Box* box1;

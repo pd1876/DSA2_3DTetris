@@ -21,8 +21,8 @@ void TetrisShape::InitBoxes() {
 }
 
 void TetrisShape::Translate(glm::vec3 _translation) {
-	if (position.z < -12) {
-		
+	/*TODO: Change this so that it stops moving if it's collided with something*/
+	if (position.z < -12) {	
 		return;
 	}
 
