@@ -1,5 +1,6 @@
 #include "TetrisShape.h"
 
+//-----------See Tetrisshape.h for comments-----------
 
 TetrisShape::TetrisShape(){
 	InitBoxes();
@@ -15,13 +16,26 @@ void TetrisShape::InitBoxes() {
 	box3 = new Box();
 
 	box1->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	box1->SetPosition(glm::vec3(0.0f, 1.0f, 0.0f));
-	box1->SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+	box2->SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+	box3->SetPosition(glm::vec3(4.0f, 0.0f, 0.0f));
 }
 
 void TetrisShape::Translate(glm::vec3 _translation) {
+	if (position.z < -12) {
+		
+		return;
+	}
+
 	position += _translation;
 	transformMat = glm::translate(transformMat, _translation);
+
+	box1->parentTransformMat = transformMat;
+	box2->parentTransformMat = transformMat;
+	box3->parentTransformMat = transformMat;
+
+	box1->Translate();
+	box2->Translate();
+	box3->Translate();
 }
 void TetrisShape::Rotate(glm::vec3 _axis, float _degrees) {
 

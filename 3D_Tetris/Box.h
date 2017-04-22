@@ -1,11 +1,12 @@
 #pragma once
 #include "RE\ReEng.h"
+//#include "GameManager.h"
 
-class Box
-{
-public:
-	TetrisShape parentShape;
+class Box{
+public: 
+	//TetrisShape* parentShape;
 	
+	glm::mat4 parentTransformMat;
 	glm::mat4 transformMat;
 	ReEng::PrimitiveClass* boxModelPrim;
 
@@ -19,7 +20,7 @@ public:
 	~Box();
 
 	void SetPosition(glm::vec3 _position);
-	void Translate(glm::vec3 _translation);
+	void Translate();
 	void Rotate(glm::vec3 _axis, float _degrees);
 	void DeleteBox();
 };

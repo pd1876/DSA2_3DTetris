@@ -16,6 +16,14 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
+	GameManager* gameManager = nullptr;
+
+	//Sides of the game
+	PrimitiveClass* topPlane = nullptr;
+	PrimitiveClass* bottomPlane = nullptr;
+	PrimitiveClass* rightPlane = nullptr;
+	PrimitiveClass* leftPlane = nullptr;
+
 	PrimitiveClass* m_pCube = nullptr;
 
 	TetrisShape* testShape1 = nullptr;

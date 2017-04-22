@@ -16,9 +16,8 @@ Box::~Box(){
 void Box::SetPosition(glm::vec3 _position) {
 	position = _position;
 }
-void Box::Translate(glm::vec3 _translation) {
-	/*position += _translation;
-	transformMat = glm::translate(transformMat * parentShape->transformMat, _translation);*/
+void Box::Translate() {
+	transformMat = glm::translate(parentTransformMat, position);
 }
 void Box::Rotate(glm::vec3 _axis, float _degrees) {
 
