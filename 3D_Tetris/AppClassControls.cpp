@@ -35,7 +35,7 @@ void AppClass::ProcessKeyboard(void)
 	}
 
 
-	/*//Change Pitch
+	/*Change Pitch
 	if (cam1->mousedY > 0) {
 		cam1->ChangePitch(cam1->mousedY * cam1->mouseSensitivityVert);
 	}
@@ -69,7 +69,7 @@ void AppClass::ProcessKeyboard(void)
 		testShape1->Translate(glm::vec3(0.05f, 0.0f, 0.0f));
 	}
 	
-	//Up / Down
+	/*Up / Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		//cam1->MoveVertical(-0.2f);
