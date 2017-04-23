@@ -2,7 +2,7 @@
 
 MyCamera::MyCamera()
 {
-	position = glm::vec3(0.0f, 0.0f, -20.0f);
+	position = glm::vec3(0.0f, 0.0f, 20.0f);
 	
 	forward = glm::vec3(0.0f, 0.0f, 1.0f);
 	right = glm::vec3(1.0f, 0.0f, 0.0f);
@@ -12,6 +12,7 @@ MyCamera::MyCamera()
 	fYaw = 0.0f;
 	fRoll = 0.0f;
 
+	/*
 	mousedX = 0;
 	mousedY = 0;
 
@@ -20,23 +21,25 @@ MyCamera::MyCamera()
 
 	mouseXLastFrame = sf::Mouse::getPosition().x;
 	mouseYLastFrame = sf::Mouse::getPosition().y;
+	*/
 }
 
-glm::mat4 MyCamera::GetView(void)
+void MyCamera::SetView(glm::mat4 newView)
 {
+	// previous view matrix code
+	/*
 	//temporary frame quaternion from pitch,yaw,roll 
 	//here roll is not used
 	glm::quat key_quat = glm::quat(glm::vec3(fPitch, fYaw, fRoll));
-	//reset values
-	fPitch = fYaw = fRoll = 0;
 
 	//order matters,update camera_quat
+	cam_quat = glm::quat(glm::vec3(0.0f)); // reset cam quat
 	cam_quat = key_quat * cam_quat;
 	cam_quat = glm::normalize(cam_quat);
 	glm::mat4 rotate = glm::mat4_cast(cam_quat);
 	
 	//Rotate forward vec 
-	/*glm::mat4 newForward = glm::mat4_cast(glm::quat(forward));
+	glm::mat4 newForward = glm::mat4_cast(glm::quat(forward));
 	newForward *= rotate;
 	forward = glm::eulerAngles(glm::quat(newForward));
 	forward = glm::normalize(forward);
@@ -51,16 +54,22 @@ glm::mat4 MyCamera::GetView(void)
 	glm::mat4 newRight = glm::mat4_cast(glm::quat(right));
 	newRight *= rotate;
 	right = glm::eulerAngles(glm::quat(newRight));
-	right = glm::normalize(right);*/
+	right = glm::normalize(right);
 
 	glm::mat4 translate = glm::mat4(1.0f);
-	//translate = glm::translate(translate, -forward);
 	translate = glm::translate(translate, position);
 	viewMatrix = rotate * translate;
 	
 	forward = glm::vec3(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2]);
 	right = glm::vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
 	up = glm::cross(forward, right);
+	*/
+
+	// new view matrix code
+	viewMatrix = newView;
+}
+
+glm::mat4 MyCamera::GetView(void) {
 	return viewMatrix;
 }
 
@@ -128,6 +137,11 @@ void MyCamera::ChangeYaw(float fDegree)
 	fYaw += fDegree;
 }
 
+void MyCamera::SetRotValues(float _fPitch, float _fYaw, float _fRoll) {
+	fPitch = _fPitch;
+	fYaw = _fYaw;
+	fRoll = _fRoll;
+}
 
 MyCamera::~MyCamera()
 {
