@@ -22,7 +22,7 @@ void TetrisShape::InitBoxes() {
 
 void TetrisShape::Translate(glm::vec3 _translation) {
 	/*TODO: Change this so that it stops moving if it's collided with something*/
-	if (position.z < -12) {	
+	if (position.z < -22) {	
 		return;
 	}
 
@@ -38,7 +38,12 @@ void TetrisShape::Translate(glm::vec3 _translation) {
 	box3->Translate();
 }
 void TetrisShape::Rotate(glm::vec3 _axis, float _degrees) {
+	rotMat = glm::rotate(IDENTITY_M4, _degrees, _axis);
+	transformMat *= rotMat;
 
+	box1->parentTransformMat = transformMat;
+	box2->parentTransformMat = transformMat;
+	box3->parentTransformMat = transformMat;
 }
 void TetrisShape::DeleteBox() {
 	delete box1;

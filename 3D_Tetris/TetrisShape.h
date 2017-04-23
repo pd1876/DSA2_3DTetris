@@ -27,6 +27,8 @@ class TetrisShape{
 		//Movement is being handled by updating this matrix every frame
 		glm::mat4 transformMat;
 
+		//Roatation matrix
+		glm::mat4 rotMat;
 		//Creates three boxes at predefined locations
 		void InitBoxes();
 

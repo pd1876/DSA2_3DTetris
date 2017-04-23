@@ -68,26 +68,31 @@ void AppClass::ProcessKeyboard(void)
 		//cam1->MoveSideways(-0.2f);
 		testShape1->Translate(glm::vec3(0.05f, 0.0f, 0.0f));
 	}
-	
-	/*Up / Down
+
+
+	//Rotate Right / Left
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), 1);
+		//cam1->MoveSideways(0.2f);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		//cam1->MoveSideways(-0.2f);
+		testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), -1);
+	}
+
+	//Rotate up / down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		//cam1->MoveVertical(-0.2f);
+		testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), 1);
+		//cam1->MoveSideways(0.2f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		//cam1->MoveVertical(0.2f);
+		//cam1->MoveSideways(-0.2f);
+		testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), -1);
 	}
-
-	//Changing Roll
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-	{
-		cam1->ChangeRoll(0.01f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	{
-		cam1->ChangeRoll(-0.01f);
-	}*/
 
 	// Camera on Z-axis
 	// Facing Front
