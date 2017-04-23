@@ -17,7 +17,9 @@ void AppClass::ProcessKeyboard(void)
 			bLast##key = pressed; } //remember the state
 #pragma endregion
 	
-	cam1->mousedX = sf::Mouse::getPosition().x - cam1-> mouseXLastFrame;
+	// John's Previous Camera Code
+	/*
+	cam1->mousedX = sf::Mouse::getPosition().x - cam1->mouseXLastFrame;
 	cam1->mousedY = sf::Mouse::getPosition().y - cam1->mouseYLastFrame;
 	
 	cam1->mouseXLastFrame = sf::Mouse::getPosition().x;
@@ -85,10 +87,38 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		cam1->ChangeRoll(-0.01f);
+	}*/
+
+	// Camera on Z-axis
+	// Facing Front
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+		cam1->SetView(glm::lookAt(vector3(0.0f, 0.0f, -20.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
 	}
-
-
-
+	// Camera on Z-axis
+	// Facing Back
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+		cam1->SetView(glm::lookAt(vector3(0.0f, 0.0f, 20.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+	}
+	// Camera on X-axis
+	// Facing Right Side
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+		cam1->SetView(glm::lookAt(vector3(20.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+	}
+	// Camera on X-axis
+	// Facing Left Side
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+		cam1->SetView(glm::lookAt(vector3(-20.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+	}
+	// Camera on Y-axis
+	// Facing Top Down
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) {
+		cam1->SetView(glm::lookAt(vector3(0.0f, 20.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f)));
+	}
+	// Camera on Y-axis
+	// Facing Bottom
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) {
+		cam1->SetView(glm::lookAt(vector3(0.0f, -20.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f)));
+	}
 	//Exit the program
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL))

@@ -17,6 +17,7 @@ public:
 	MyCamera();
 	
 	glm::mat4 GetView(void);
+	void SetView(glm::mat4 newView);
 	glm::mat4 GetProjection(bool);
 	void SetPosition(vector3);
 	vector3 GetPosition(void);
@@ -30,6 +31,8 @@ public:
 	void ChangePitch(float);
 	void ChangeRoll(float);
 	void ChangeYaw(float);
+
+	void SetRotValues(float _fPitch, float _fYaw, float _fRoll);
 
 	~MyCamera();
 
