@@ -13,6 +13,8 @@ public:
 	glm::vec3 position;
 	glm::vec3 pivotPoint;
 	glm::quat quatRotation;
+
+	float mass;
 	
 	bool colliding;
 

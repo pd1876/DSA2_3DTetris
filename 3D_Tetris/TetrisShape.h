@@ -15,11 +15,19 @@ class TetrisShape{
 		Box* box2;
 		Box* box3;
 
+		// Let's declare some physics variables
+		float mass;
+		vector3 velocity;
+		vector3 acceleration;
+
+		// Bool for if it should be moving or not
+		bool isFalling;
+
 		//Position isn't really used currently but it might be helpful later
-		glm::vec3 position;
+		vector3 position;
 
 		//Also not currently in use but same deal
-		glm::vec3 pivotPoint;
+		vector3 pivotPoint;
 
 		//Ditto
 		glm::quat quatRotation;
@@ -31,10 +39,13 @@ class TetrisShape{
 		void InitBoxes();
 
 		//Moves the TetrisShape's model matrix along with its boxes model matrices
-		void Translate(glm::vec3 _translation);
+		void Translate(vector3 _translation);
+
+		// Moves the TetrisShape model matrix along the Z axis
+		void Fall();
 
 		//Not implemented yet
-		void Rotate(glm::vec3 _axis, float _degrees);
+		void Rotate(vector3 _axis, float _degrees);
 		void DeleteBox();
 
 		TetrisShape();
