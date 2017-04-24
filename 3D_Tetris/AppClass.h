@@ -10,6 +10,7 @@ Date: 2015/09
 #include "Box.h"
 #include "TetrisShape.h"
 #include "Camera.h"
+#include "MyBOManager.h"
 //#include <chrono>
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
@@ -36,6 +37,8 @@ class AppClass : public ReEngAppClass
 
 	matrix4 coneMatrix;
 	matrix4 cylMatrix;
+	MyBOManager* m_pBOMngr; //Pointer to Bounding Object Manager
+
 public:
 	MyCamera* cam1;
 	typedef ReEngAppClass super;
