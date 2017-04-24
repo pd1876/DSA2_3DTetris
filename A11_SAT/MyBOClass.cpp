@@ -196,6 +196,40 @@ void MyBOClass::DisplayReAlligned(vector3 a_v3Color)
 	m_pMeshMngr->AddCubeToRenderList(glm::translate(IDENTITY_M4, m_v3CenterG) *
 		glm::scale(m_v3HalfWidthG * 2.0f), a_v3Color, WIRE);
 }
+bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
+	float otherRadius = _other->m_fRadius;
+	vector3 centerDist = m_v3Center - _other->m_v3Center;
+
+	float myProjection = glm::dot(GetHalfWidth() , _axis);
+	float otherProjection = glm::dot(_other->GetHalfWidth(), _axis);
+	float centerDistProjection = glm::dot(centerDist, _axis);
+
+	m_pMeshMngr->Print("My projection: " + std::to_string(myProjection) + ", Other Projection: " + std::to_string(otherProjection) + ", Central Distance projection: " + std::to_string(std::abs(centerDistProjection)));
+
+
+	if (myProjection + otherProjection < (std::abs(centerDistProjection))) {
+		return true;
+	}
+
+	return false;
+
+	//Version that takes in a list
+	/*for (int i = 0; i < _others.size; i++) {
+	float otherRadius = _others[i]->m_fRadius;
+	vector3 centerDist = m_v3Center - _others[i]->m_v3Center;
+
+	float myProjection = glm::dot(GetHalfWidth(), _axis);
+	float otherProjection = glm::dot(_others[i]->GetHalfWidth(), _axis);
+	float centerDistProjection = glm::dot(centerDist, _axis);
+
+	if (myProjection + otherProjection < centerDistProjection) {
+	return true;
+	}
+	}
+
+	return false;*/
+}
+
 bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 {
 	//Get all vectors in global space

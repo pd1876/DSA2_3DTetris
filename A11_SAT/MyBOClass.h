@@ -158,6 +158,8 @@ public:
 	*/
 	void DisplayReAlligned(vector3 a_v3Color = REDEFAULT);
 
+	bool CheckAxis(MyBOClass* _others, vector3 _axis);
+
 private:
 	/*
 	USAGE: Deallocates member fields
