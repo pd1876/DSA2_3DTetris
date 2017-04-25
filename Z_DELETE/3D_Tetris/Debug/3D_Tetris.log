@@ -1,36 +1,35 @@
-﻿  AppClass.cpp
-d:\3dtetris\3d_tetris\appclass.cpp(63): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  3D_Tetris.vcxproj -> D:\3dtetris\Z_DELETE\3D_TetrisD.exe
-  A subdirectory or file D:\3dtetris\_Binary\ already exists.
-  D:\3dtetris\include\GL\bin\glew32.dll
-  D:\3dtetris\include\GL\bin\glut32.dll
+﻿  3D_Tetris.vcxproj -> Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\Z_DELETE\3D_TetrisD.exe
+  3D_Tetris.vcxproj -> Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\Z_DELETE\3D_TetrisD.pdb (Full PDB)
+  A subdirectory or file Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\_Binary\ already exists.
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\GL\bin\glew32.dll
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\GL\bin\glut32.dll
   2 File(s) copied
-  D:\3dtetris\include\RE\bin\2015\ReEng_VS15.dll
-  D:\3dtetris\include\RE\bin\2015\ReEng_VS15_d.dll
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\bin\2015\ReEng_VS15.dll
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\bin\2015\ReEng_VS15_d.dll
   2 File(s) copied
-  D:\3dtetris\include\SFML\bin\sfml-system-2.dll
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\SFML\bin\sfml-system-2.dll
   1 File(s) copied
-  D:\3dtetris\include\SFML\bin\sfml-window-2.dll
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\SFML\bin\sfml-window-2.dll
   1 File(s) copied
-  A subdirectory or file D:\3dtetris\_Binary\Shaders\ already exists.
-  D:\3dtetris\include\RE\Shaders\Basic.fs
-  D:\3dtetris\include\RE\Shaders\Basic.vs
-  D:\3dtetris\include\RE\Shaders\BasicColor.fs
-  D:\3dtetris\include\RE\Shaders\BasicColor.vs
-  D:\3dtetris\include\RE\Shaders\Color.fs
-  D:\3dtetris\include\RE\Shaders\Color.vs
-  D:\3dtetris\include\RE\Shaders\PassThrough.fs
-  D:\3dtetris\include\RE\Shaders\PassThrough.vs
-  D:\3dtetris\include\RE\Shaders\Phong.fs
-  D:\3dtetris\include\RE\Shaders\Phong.vs
-  D:\3dtetris\include\RE\Shaders\REShader.fs
-  D:\3dtetris\include\RE\Shaders\REShader.vs
-  D:\3dtetris\include\RE\Shaders\REShaderInv.fs
-  D:\3dtetris\include\RE\Shaders\REShaderMC.fs
-  D:\3dtetris\include\RE\Shaders\Skybox.fs
-  D:\3dtetris\include\RE\Shaders\Skybox.vs
-  D:\3dtetris\include\RE\Shaders\Test.fs
-  D:\3dtetris\include\RE\Shaders\Test.vs
-  D:\3dtetris\include\RE\Shaders\TextShader.fs
-  D:\3dtetris\include\RE\Shaders\TextShader.vs
+  A subdirectory or file Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\_Binary\Shaders\ already exists.
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Basic.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Basic.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\BasicColor.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\BasicColor.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Color.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Color.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\PassThrough.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\PassThrough.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Phong.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Phong.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\REShader.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\REShader.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\REShaderInv.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\REShaderMC.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Skybox.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Skybox.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Test.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\Test.vs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\TextShader.fs
+  Z:\IGMProfile\Documents\GitHub\DSA2_3DTetris\include\RE\Shaders\TextShader.vs
   20 File(s) copied
