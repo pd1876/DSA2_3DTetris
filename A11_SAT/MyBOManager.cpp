@@ -216,8 +216,8 @@ void MyBOManager::CheckCollisions(void)
 	{
 		for (uint nObjectB = nObjectA + 1; nObjectB < m_nObjectCount; nObjectB++)
 		{
-			//if (m_lObject[nObjectA]->IsColliding(m_lObject[nObjectB]))
-			//{
+			if (m_lObject[nObjectA]->IsColliding(m_lObject[nObjectB]))
+			{
 				if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], vector3(1.0f, 0.0f, 0.0f)))) {
 					m_llCollidingIndices[nObjectA].push_back(nObjectB);
 					m_llCollidingIndices[nObjectB].push_back(nObjectA);
@@ -228,7 +228,7 @@ void MyBOManager::CheckCollisions(void)
 					m_llCollidingIndices[nObjectA].push_back(nObjectB);
 					m_llCollidingIndices[nObjectB].push_back(nObjectA);
 				}
-			//}
+			}
 		}
 	}
 }

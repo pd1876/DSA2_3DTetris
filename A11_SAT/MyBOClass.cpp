@@ -197,9 +197,26 @@ void MyBOClass::DisplayReAlligned(vector3 a_v3Color)
 		glm::scale(m_v3HalfWidthG * 2.0f), a_v3Color, WIRE);
 }
 bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
-	// I think we need to start in local space
-	// then convert everything to global space
-	// then calculate the projections and do our collision test
+	// Found Collision Detection help from this website
+	/*
+	https://gamedevelopment.tutsplus.com/tutorials/collision-detection-using-the-separating-axis-theorem--gamedev-169
+	*/
+	// Project the min and max of each object onto an arbitrary axis
+	float myMaxProjection = glm::dot(m_v3MaxG, _axis);
+	float myMinProjection = glm::dot(m_v3MinG, _axis);
+	float otherMaxProjection = glm::dot(_other->m_v3MaxG, _axis);
+	float otherMinProjection = glm::dot(_other->m_v3MinG, _axis);
+
+	m_pMeshMngr->PrintLine("My Max Projection: " + std::to_string(myMaxProjection));
+	m_pMeshMngr->PrintLine("My Min Projection: " + std::to_string(myMinProjection));
+	m_pMeshMngr->PrintLine("Other Max Projection: " + std::to_string(otherMaxProjection));
+	m_pMeshMngr->PrintLine("Other Min Projection: " + std::to_string(otherMinProjection));
+
+	// check for collision
+	return (otherMaxProjection < myMinProjection || myMaxProjection < otherMinProjection);
+
+	// John's Version
+	/*
 	float otherRadius = _other->m_fRadius;
 	vector3 centerDist = m_v3CenterG - _other->m_v3CenterG;
 
@@ -215,7 +232,8 @@ bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
 	}
 
 	return false;
-
+	*/
+	
 	//Version that takes in a list
 	/*for (int i = 0; i < _others.size; i++) {
 	float otherRadius = _others[i]->m_fRadius;
