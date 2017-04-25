@@ -197,6 +197,9 @@ void MyBOClass::DisplayReAlligned(vector3 a_v3Color)
 		glm::scale(m_v3HalfWidthG * 2.0f), a_v3Color, WIRE);
 }
 bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
+	// I think we need to start in local space
+	// then convert everything to global space
+	// then calculate the projections and do our collision test
 	float otherRadius = _other->m_fRadius;
 	vector3 centerDist = m_v3CenterG - _other->m_v3CenterG;
 
