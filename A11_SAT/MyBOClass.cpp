@@ -198,13 +198,13 @@ void MyBOClass::DisplayReAlligned(vector3 a_v3Color)
 }
 bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
 	float otherRadius = _other->m_fRadius;
-	vector3 centerDist = m_v3Center - _other->m_v3Center;
+	vector3 centerDist = m_v3CenterG - _other->m_v3CenterG;
 
-	float myProjection = glm::dot(GetHalfWidth() , _axis);
-	float otherProjection = glm::dot(_other->GetHalfWidth(), _axis);
+	float myProjection = glm::dot(GetHalfWidthG() , _axis);
+	float otherProjection = glm::dot(_other->GetHalfWidthG(), _axis);
 	float centerDistProjection = glm::dot(centerDist, _axis);
 
-	m_pMeshMngr->Print("My projection: " + std::to_string(myProjection) + ", Other Projection: " + std::to_string(otherProjection) + ", Central Distance projection: " + std::to_string(std::abs(centerDistProjection)));
+	m_pMeshMngr->Print("\nMy projection: " + std::to_string(myProjection) + "\n Other Projection: " + std::to_string(otherProjection) + "\n Central Distance projection: " + std::to_string(std::abs(centerDistProjection)) + "\n");
 
 
 	if (myProjection + otherProjection < (std::abs(centerDistProjection))) {

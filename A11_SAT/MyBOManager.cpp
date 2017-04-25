@@ -221,6 +221,12 @@ void MyBOManager::CheckCollisions(void)
 				if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], vector3(1.0f, 0.0f, 0.0f)))) {
 					m_llCollidingIndices[nObjectA].push_back(nObjectB);
 					m_llCollidingIndices[nObjectB].push_back(nObjectA);
+				}else if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], vector3(0.0f, 1.0f, 0.0f)))) {
+					m_llCollidingIndices[nObjectA].push_back(nObjectB);
+					m_llCollidingIndices[nObjectB].push_back(nObjectA);
+				}else if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], vector3(0.0f, 0.0f, 1.0f)))) {
+					m_llCollidingIndices[nObjectA].push_back(nObjectB);
+					m_llCollidingIndices[nObjectB].push_back(nObjectA);
 				}
 			//}
 		}
