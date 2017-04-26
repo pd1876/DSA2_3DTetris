@@ -216,40 +216,67 @@ bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
 	// check for collision
 	return (otherMaxProjection < myMinProjection || myMaxProjection < otherMinProjection);
 
-	// John's Version
-	/*
-	float otherRadius = _other->m_fRadius;
-	vector3 centerDist = m_v3CenterG - _other->m_v3CenterG;
+	// Following from the book in the GDD library
 
-	float myProjection = glm::dot(GetHalfWidthG() , _axis);
-	float otherProjection = glm::dot(_other->GetHalfWidthG(), _axis);
-	float centerDistProjection = glm::dot(centerDist, _axis);
+	float ra;
+	float rb;
 
-	m_pMeshMngr->Print("\nMy projection: " + std::to_string(myProjection) + "\n Other Projection: " + std::to_string(otherProjection) + "\n Central Distance projection: " + std::to_string(std::abs(centerDistProjection)) + "\n");
+	vector3 v3_Rotate[3] = {
+		vector3(m_m4ToWorld[0][0], m_m4ToWorld[0][1], m_m4ToWorld[0][2]),
+		vector3(m_m4ToWorld[1][0], m_m4ToWorld[1][1], m_m4ToWorld[1][2]),
+		vector3(m_m4ToWorld[2][0], m_m4ToWorld[2][1], m_m4ToWorld[2][2])
+	};
 
+	vector3 v3_absolute[3];
+	// Compute a rotation matrix expressing b in a's plane
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
 
-	if (myProjection + otherProjection < (std::abs(centerDistProjection))) {
-		return true;
+			v3_Rotate[i][j] = glm::dot(m_v3LocalAxis[i], _other->m_v3LocalAxis[j]);
+		}
 	}
+			
+			// Compute a translation vector t (??)
+			vector3 t = m_v3Center - _other->m_v3Center;
 
-	return false;
-	*/
-	
-	//Version that takes in a list
-	/*for (int i = 0; i < _others.size; i++) {
-	float otherRadius = _others[i]->m_fRadius;
-	vector3 centerDist = m_v3Center - _others[i]->m_v3Center;
+			t = vector3(glm::dot(t, v3_Rotate[0]), glm::dot(t, v3_Rotate[1]), glm::dot(t, v3_Rotate[2]));
 
-	float myProjection = glm::dot(GetHalfWidth(), _axis);
-	float otherProjection = glm::dot(_others[i]->GetHalfWidth(), _axis);
-	float centerDistProjection = glm::dot(centerDist, _axis);
+			// Computer common whatevers
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					v3_absolute[i][j] = glm::abs(v3_Rotate[i][j]) + FLT_EPSILON;
+				}
+			}
 
-	if (myProjection + otherProjection < centerDistProjection) {
-	return true;
-	}
-	}
+			// Test all the axes
+			for (int i = 0; i < 3; i++) {
+				ra = m_v3Center[i];
+				rb = _other->m_v3Center[0] * v3_absolute[i][0] + _other->m_v3Center[1] * v3_absolute[i][1] + _other->m_v3Center[2] * v3_absolute[i][2];
+				if (glm::abs(t[i]) > ra + rb)
+					return 0;
+			}
 
-	return false;*/
+			for (int i = 0; i < 3; i++) {
+				rb = _other->m_v3Center[i];
+				rb = m_v3Center[0] * v3_absolute[i][0] + m_v3Center[1] * v3_absolute[i][1] + m_v3Center[2] * v3_absolute[i][2];
+				if (glm::abs(t[0] * v3_Rotate[0][i] + t[1] * v3_Rotate[1][i] + t[2] * v3_Rotate[2][i]) > ra + rb)
+					return 0;
+			}
+
+			ra = m_v3Center[1] * v3_absolute[2][0] + m_v3Center[2] * v3_absolute[1][0];
+			rb = _other->m_v3Center[1] * v3_absolute[0][2] + _other->m_v3Center[2] * v3_absolute[0][1];
+			if (glm::abs(t[2] * v3_Rotate[1][0] - t[1] * v3_Rotate[2][0]) > ra + rb)
+				return 0;
+
+			ra = m_v3Center[1] * v3_absolute[2][1] + m_v3Center[2] * v3_absolute[1][1];
+			rb = _other->m_v3Center[0] * v3_absolute[0][2] + _other->m_v3Center[2] * v3_absolute[0][0];
+			if (glm::abs(t[2] * v3_Rotate[1][1] - t[1] * v3_Rotate[2][1]) > ra + rb)
+				return 0;
+
+			ra = m_v3Center[1] * v3_absolute[2][2] + m_v3Center[2] * v3_absolute[1][2];
+			rb = _other->m_v3Center[0] * v3_absolute[0][1] + _other->m_v3Center[1] * v3_absolute[0][0];
+			if (glm::abs(t[2] * v3_Rotate[1][2] - t[1] * v3_Rotate[2][2]) > ra + rb)
+				return 0;
 }
 
 bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
@@ -265,9 +292,7 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	Are they colliding?
 	For Objects we will assume they are colliding, unless at least one of the following conditions is not met
 	*/
-	//first check the bounding sphere, if that is not colliding we can guarantee that there are no collision
-	if ((m_fRadius + a_pOther->m_fRadius) < glm::distance(m_v3CenterG, a_pOther->m_v3CenterG))
-		return false;
+
 
 	//If the distance was smaller it might be colliding
 	//we will use the ReAligned box for the second check, notice that as long as one check return true they are 
