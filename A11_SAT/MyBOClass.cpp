@@ -212,6 +212,7 @@ bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
 	m_pMeshMngr->PrintLine("Other Max Projection: " + std::to_string(otherMaxProjection));
 	m_pMeshMngr->PrintLine("Other Min Projection: " + std::to_string(otherMinProjection));
 
+
 	// check for collision
 	return (otherMaxProjection < myMinProjection || myMaxProjection < otherMinProjection);
 
