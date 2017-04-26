@@ -277,6 +277,33 @@ bool MyBOClass::CheckAxis(MyBOClass* _other, vector3 _axis) {
 			rb = _other->m_v3Center[0] * v3_absolute[0][1] + _other->m_v3Center[1] * v3_absolute[0][0];
 			if (glm::abs(t[2] * v3_Rotate[1][2] - t[1] * v3_Rotate[2][2]) > ra + rb)
 				return 0;
+
+			ra = m_v3Center[0] * v3_absolute[2][0] + m_v3Center[2] * v3_absolute[1][2];
+			rb = _other->m_v3Center[1] * v3_absolute[1][2] + _other->m_v3Center[2] * v3_absolute[1][1];
+			if (glm::abs(t[0] * v3_Rotate[2][0] - t[2] * v3_Rotate[0][0]) > ra + rb) return 0;
+
+			ra = m_v3Center[0] * v3_absolute[2][1] + m_v3Center[2] * v3_absolute[0][1];
+			rb = _other->m_v3Center[0] * v3_absolute[1][2] + _other->m_v3Center[2] * v3_absolute[1][0];
+			if (glm::abs(t[0] * v3_Rotate[2][1] - t[2] * v3_Rotate[0][1]) > ra + rb) return 0;
+
+			ra = m_v3Center[0] * v3_absolute[2][2] + m_v3Center[2] * v3_absolute[0][2];
+			rb = _other->m_v3Center[0] * v3_absolute[1][1] + _other->m_v3Center[1] * v3_absolute[1][0];
+			if (glm::abs(t[0] * v3_Rotate[2][2] - t[2] * v3_Rotate[0][2]) > ra + rb) return 0;
+
+			ra = m_v3Center[0] * v3_absolute[1][0] + m_v3Center[1] * v3_absolute[0][0];
+			rb = _other->m_v3Center[1] * v3_absolute[2][2] + _other->m_v3Center[2] * v3_absolute[2][1];
+			if (glm::abs(t[1] * v3_Rotate[0][0] - t[0] * v3_Rotate[1][0]) > ra + rb) return 0;
+
+			ra = m_v3Center[0] * v3_absolute[1][1] + m_v3Center[1] * v3_absolute[0][1];
+			rb = _other->m_v3Center[0] * v3_absolute[2][2] + _other->m_v3Center[2] * v3_absolute[2][0];
+			if (glm::abs(t[1] * v3_Rotate[0][1] - t[0] * v3_Rotate[1][1]) > ra + rb) return 0;
+
+			ra = m_v3Center[0] * v3_absolute[1][2] + m_v3Center[1] * v3_absolute[0][2];
+			rb = _other->m_v3Center[0] * v3_absolute[2][1] + _other->m_v3Center[1] * v3_absolute[2][0];
+			if (glm::abs(t[1] * v3_Rotate[0][2] - t[0] * v3_Rotate[1][2]) > ra + rb) return 0;
+
+			// Since no separating axis is found, the OBBs must be intersecting
+			return 1;
 }
 
 bool MyBOClass::IsColliding(MyBOClass* const a_pOther)

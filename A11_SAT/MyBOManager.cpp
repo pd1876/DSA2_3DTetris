@@ -218,38 +218,8 @@ void MyBOManager::CheckCollisions(void)
 		{
 			if (m_lObject[nObjectA]->IsColliding(m_lObject[nObjectB]))
 			{
-				glm::mat4 rotMat = glm::extractMatrixRotation(m_lObject[nObjectA]->GetModelMatrix());
-				vector3 localAxis = glm::eulerAngles(glm::quat(rotMat));
-
-				if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], localAxis))) {
-					m_llCollidingIndices[nObjectA].push_back(nObjectB);
-					m_llCollidingIndices[nObjectB].push_back(nObjectA);
-
-
-					m_pMeshMngr->AddAxisToRenderList(glm::translate(IDENTITY_M4, m_lObject[nObjectA]->GetHalfWidthG() * 50.0f));
-
-					m_pMeshMngr->PrintLine("Collision on Object: " + std::to_string(nObjectA) + "s X axis" );
-				}
-				if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], glm::cross((m_lObject[nObjectA]->GetHalfWidthG() * 50.0f), glm::vec3(1.0f, 0.0f, 0.0f))))) {
-					m_llCollidingIndices[nObjectA].push_back(nObjectB);
-					m_llCollidingIndices[nObjectB].push_back(nObjectA);
-
-					m_pMeshMngr->PrintLine("Collision on Object: " + std::to_string(nObjectA) + "s Y axis");
-				}
-				if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], glm::cross((m_lObject[nObjectA]->GetHalfWidthG() * 50.0f), glm::vec3(0.0f, 0.0f, 1.0f))))) {
-					m_llCollidingIndices[nObjectA].push_back(nObjectB);
-					m_llCollidingIndices[nObjectB].push_back(nObjectA);
-
-
-					m_pMeshMngr->PrintLine("Collision on Object: " + std::to_string(nObjectA) + "s Z axis");
-				}
-				/*else if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], vector3(0.0f, 1.0f, 0.0f)))) {
-					m_llCollidingIndices[nObjectA].push_back(nObjectB);
-					m_llCollidingIndices[nObjectB].push_back(nObjectA);
-				}else if ((m_lObject[nObjectA]->CheckAxis(m_lObject[nObjectB], vector3(0.0f, 0.0f, 1.0f)))) {
-					m_llCollidingIndices[nObjectA].push_back(nObjectB);
-					m_llCollidingIndices[nObjectB].push_back(nObjectA);
-				}*/
+				m_llCollidingIndices[nObjectA].push_back(nObjectB);
+				m_llCollidingIndices[nObjectB].push_back(nObjectA);
 			}
 		}
 	}
