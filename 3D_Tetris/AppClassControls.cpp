@@ -1,4 +1,6 @@
 #include "AppClass.h"
+#include "GameManager.h"
+
 void AppClass::ProcessKeyboard(void)
 {
 	//Flag for the modifier
@@ -92,32 +94,32 @@ void AppClass::ProcessKeyboard(void)
 	// Camera on Z-axis
 	// Facing Front
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-		cam1->SetView(glm::lookAt(vector3(0.0f, 0.0f, -20.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+		activeCam->SetView(cam1->GetView());
 	}
 	// Camera on Z-axis
 	// Facing Back
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-		cam1->SetView(glm::lookAt(vector3(0.0f, 0.0f, 20.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+		activeCam->SetView(cam2->GetView());
 	}
 	// Camera on X-axis
 	// Facing Right Side
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-		cam1->SetView(glm::lookAt(vector3(20.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+		activeCam->SetView(cam3->GetView());
 	}
 	// Camera on X-axis
 	// Facing Left Side
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-		cam1->SetView(glm::lookAt(vector3(-20.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f)));
+		activeCam->SetView(cam4->GetView());
 	}
 	// Camera on Y-axis
 	// Facing Top Down
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) {
-		cam1->SetView(glm::lookAt(vector3(0.0f, 20.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f)));
+		activeCam->SetView(cam5->GetView());
 	}
 	// Camera on Y-axis
 	// Facing Bottom
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) {
-		cam1->SetView(glm::lookAt(vector3(0.0f, -20.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f)));
+		activeCam->SetView(cam6->GetView());
 	}
 	//Exit the program
 #pragma region Other Actions

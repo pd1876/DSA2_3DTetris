@@ -33,14 +33,22 @@ class AppClass : public ReEngAppClass
 	Box* testBox1 = nullptr;
 
 	matrix4 m_m4Projection;
-	matrix4 m_m4View;
-
-	matrix4 coneMatrix;
-	matrix4 cylMatrix;
+	matrix4 m_m4View1;
+	matrix4 m_m4View2;
+	matrix4 m_m4View3;
+	matrix4 m_m4View4;
+	matrix4 m_m4View5;
+	matrix4 m_m4View6;
 	MyBOManager* m_pBOMngr; //Pointer to Bounding Object Manager
 
 public:
 	MyCamera* cam1;
+	MyCamera* cam2;
+	MyCamera* cam3;
+	MyCamera* cam4;
+	MyCamera* cam5;
+	MyCamera* cam6;
+	MyCamera* activeCam;
 	typedef ReEngAppClass super;
 
 	/* Constructor */

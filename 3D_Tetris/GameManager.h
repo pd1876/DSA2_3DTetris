@@ -6,10 +6,10 @@
 class GameManager
 {
 public:
-	glm::mat4 topPlaneTransform;
-	glm::mat4 bottomPlaneTransform;
-	glm::mat4 rightPlaneTransform;
-	glm::mat4 leftPlaneTransform;
+	glm::mat4 topPlaneTransform = IDENTITY_M4;
+	glm::mat4 bottomPlaneTransform = IDENTITY_M4;
+	glm::mat4 rightPlaneTransform = IDENTITY_M4;
+	glm::mat4 leftPlaneTransform = IDENTITY_M4;
 
 
 	GameManager();

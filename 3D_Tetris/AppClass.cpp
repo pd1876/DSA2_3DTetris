@@ -5,8 +5,14 @@ void AppClass::InitWindow(String a_sWindowName)
 }
 void AppClass::InitVariables(void)
 {
-	//Make a camera
+	//Make 6 cameras
 	cam1 = new MyCamera();
+	cam2 = new MyCamera();
+	cam3 = new MyCamera();
+	cam4 = new MyCamera();
+	cam5 = new MyCamera();
+	cam6 = new MyCamera();
+	activeCam = new MyCamera();
 
 	//Make the game manager. Currently just handles orienting the sides correctly
 	gameManager = new GameManager();
@@ -22,7 +28,7 @@ void AppClass::InitVariables(void)
 	rightPlane->GeneratePlane(12.0f, REYELLOW);
 
 	leftPlane = new PrimitiveClass();
-	leftPlane->GeneratePlane(12.0f, REGREENDARK);
+	leftPlane->GeneratePlane(12.0f, RECYAN);
 
 
 	//Make a shape. This is what the player will be interacting with
@@ -49,7 +55,20 @@ void AppClass::InitVariables(void)
 
 	//Calculate the first projections
 	m_m4Projection = glm::perspective(45.0f, 1080.0f / 768.0f, 0.01f, 1000.0f);
-	m_m4View = glm::lookAt(vector3(0.0f, 0.0f, 15.0f), vector3(0.0f, 0.0f, 14.0f), vector3(0.0f, 1.0f, 0.0f));
+	m_m4View1 = glm::lookAt(vector3(0.0f, 0.0f, 40.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
+	m_m4View2 = glm::lookAt(vector3(0.0f, 0.0f, -40.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
+	m_m4View3 = glm::lookAt(vector3(-40.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
+	m_m4View4 = glm::lookAt(vector3(40.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
+	m_m4View5 = glm::lookAt(vector3(0.0f, -40.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f));
+	m_m4View6 = glm::lookAt(vector3(0.0f, 40.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f));
+
+	cam1->SetView(m_m4View1);
+	cam2->SetView(m_m4View2);
+	cam3->SetView(m_m4View3);
+	cam4->SetView(m_m4View4);
+	cam5->SetView(m_m4View5);
+	cam6->SetView(m_m4View6);
+	activeCam->SetView(m_m4View1);
 }
 
 void AppClass::Update(void)
@@ -104,16 +123,16 @@ void AppClass::Display(void){
 	m_pMeshMngr->AddGridToRenderList(1.0f, REAXIS::XY);
 
 	//Render the sides of the play area. Eventually should be blackboxed in GameManager
-	topPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->topPlaneTransform);
-	bottomPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->bottomPlaneTransform);
-	rightPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->rightPlaneTransform);
-	leftPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->leftPlaneTransform);
+	topPlane->Render(activeCam->GetProjection(false), activeCam->GetView(), gameManager->topPlaneTransform);
+	bottomPlane->Render(activeCam->GetProjection(false), activeCam->GetView(), gameManager->bottomPlaneTransform);
+	rightPlane->Render(activeCam->GetProjection(false), activeCam->GetView(), gameManager->rightPlaneTransform);
+	leftPlane->Render(activeCam->GetProjection(false), activeCam->GetView(), gameManager->leftPlaneTransform);
 
 
 	//Render all boxes in test shape. See TetrisShape.cpp for explanation as to why this isn't coded well. Fuck this language
-	testShape1->box1->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box1->transformMat);
-	testShape1->box2->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box2->transformMat);
-	testShape1->box3->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box3->transformMat);
+	testShape1->box1->boxModelPrim->Render(activeCam->GetProjection(false), activeCam->GetView(), testShape1->box1->transformMat);
+	testShape1->box2->boxModelPrim->Render(activeCam->GetProjection(false), activeCam->GetView(), testShape1->box2->transformMat);
+	testShape1->box3->boxModelPrim->Render(activeCam->GetProjection(false), activeCam->GetView(), testShape1->box3->transformMat);
 
 
 	m_pMeshMngr->Render(); //renders the render list
@@ -127,6 +146,12 @@ void AppClass::Release(void)
 	SafeDelete(testShape1);
 	SafeDelete(m_pCube);
 	SafeDelete(cam1);
+	SafeDelete(cam2);
+	SafeDelete(cam3);
+	SafeDelete(cam4);
+	SafeDelete(cam5);
+	SafeDelete(cam6);
+	SafeDelete(activeCam);
 
 	SafeDelete(topPlane);
 	SafeDelete(bottomPlane);
