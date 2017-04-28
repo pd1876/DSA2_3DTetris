@@ -67,10 +67,12 @@ void AppClass::Display(void){
 	leftPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->leftPlaneTransform);
 
 
+	//Old bad way of rendering all boxes
 	//Render all boxes in test shape. See TetrisShape.cpp for explanation as to why this isn't coded well. Fuck this language
-	testShape1->box1->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box1->transformMat);
+	/*testShape1->box1->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box1->transformMat);
 	testShape1->box2->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box2->transformMat);
-	testShape1->box3->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box3->transformMat);
+	testShape1->box3->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box3->transformMat);*/
+	testShape1->RenderBoxes(cam1);
 
 
 	m_pMeshMngr->Render(); //renders the render list

@@ -1,12 +1,13 @@
 #pragma once
 #include "RE\ReEng.h"
 #include "GameManager.h"
+#include "Camera.h"
 
 class TetrisShape{
 	public:
 
 		//Well this line doesn't work because C++ is a fucking garbage language that's shit to use so I guess fuck good coding practices. Fuck c++ so hard
-		//std::vector<Box> boxes;
+		std::vector<Box> boxes;
 
 		//Is this the shape that the player is currently controlling?
 
@@ -14,6 +15,8 @@ class TetrisShape{
 		Box* box1;
 		Box* box2;
 		Box* box3;
+		Box* box4;
+		Box* box5;
 
 		//Position isn't really used currently but it might be helpful later
 		glm::vec3 position;
@@ -29,8 +32,15 @@ class TetrisShape{
 
 		//Roatation matrix
 		glm::mat4 rotMat;
-		//Creates three boxes at predefined locations
-		void InitBoxes();
+		
+		//Creates five box line shape
+		void InitLineBoxes();
+
+		//Creates four box cross shape
+		void InitCrossBoxes();
+
+		//blackboxing rendering this shape's boxes
+		void RenderBoxes(MyCamera* camera);
 
 		//Moves the TetrisShape's model matrix along with its boxes model matrices
 		void Translate(glm::vec3 _translation);

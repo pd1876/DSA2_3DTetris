@@ -2,7 +2,6 @@
 #include "Box.h"
 #include "TetrisShape.h"
 
-
 class GameManager
 {
 public:
