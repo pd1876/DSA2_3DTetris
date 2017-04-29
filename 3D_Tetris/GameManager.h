@@ -11,7 +11,6 @@ public:
 	glm::mat4 rightPlaneTransform = IDENTITY_M4;
 	glm::mat4 leftPlaneTransform = IDENTITY_M4;
 
-
 	GameManager();
 	~GameManager();
 };

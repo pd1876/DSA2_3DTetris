@@ -43,12 +43,6 @@ class AppClass : public ReEngAppClass
 
 public:
 	MyCamera* cam1;
-	MyCamera* cam2;
-	MyCamera* cam3;
-	MyCamera* cam4;
-	MyCamera* cam5;
-	MyCamera* cam6;
-	MyCamera* activeCam;
 	typedef ReEngAppClass super;
 
 	/* Constructor */
