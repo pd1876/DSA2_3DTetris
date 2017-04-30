@@ -2,8 +2,14 @@
 
 //-----------See Tetrisshape.h for comments-----------
 
-TetrisShape::TetrisShape(){
+TetrisShape::TetrisShape() {
+
+}
+TetrisShape::TetrisShape(MeshManagerSingleton * _meshManager){
 	//InitLineBoxes();
+	meshManager = _meshManager;
+	boxes.resize(20);
+
 	InitCrossBoxes();
 }
 
@@ -12,10 +18,12 @@ TetrisShape::~TetrisShape(){
 }
 
 void TetrisShape::InitLineBoxes() {
-	
-	box1 = new Box();
-	box2 = new Box();
-	box3 = new Box();
+	//See box constructor for explanation
+	myBoxCount = 3;
+
+	box1 = new Box(meshManager, 1);
+	box2 = new Box(meshManager, 2);
+	box3 = new Box(meshManager, 3);
 
 	box1->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	box2->SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
@@ -27,11 +35,15 @@ void TetrisShape::InitLineBoxes() {
 }
 
 void TetrisShape::InitCrossBoxes() {
-	box1 = new Box();
-	box2 = new Box();
-	box3 = new Box();
-	box4 = new Box();
-	box5 = new Box();
+	//See box constructor for explanation
+
+	myBoxCount = 5;
+
+	box1 = new Box(meshManager, 1);
+	box2 = new Box(meshManager, 2);
+	box3 = new Box(meshManager, 3);
+	box4 = new Box(meshManager, 4);
+	box5 = new Box(meshManager, 5);
 
 	//Center
 	box1->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -44,7 +56,6 @@ void TetrisShape::InitCrossBoxes() {
 	box4->SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
 	box5->SetPosition(glm::vec3(0.0f, -2.0f, 0.0f));
 
-
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
 	boxes.push_back(*box3);
@@ -54,29 +65,27 @@ void TetrisShape::InitCrossBoxes() {
 void TetrisShape::RenderBoxes(MyCamera* renderCam) { 
 	//std::cout << "Num boxes to render: " << boxes.size() << std::endl;
 
-	for (int i = 0; i < boxes.size(); i++) {
-		boxes[i].boxModelPrim->Render(renderCam->GetProjection(false), renderCam->GetView(), boxes[i].transformMat);
+	for (int i = 0; i < myBoxCount; i++) {
+		//Rendering with primitive boxes
+		//boxes[i].boxModelPrim->Render(renderCam->GetProjection(false), renderCam->GetView(), boxes[i].transformMat);
+
+		//Rendering with models
+		meshManager->SetModelMatrix(boxes[i].transformMat, boxes[i].boxName);
 	}
 }
 void TetrisShape::Translate(glm::vec3 _translation) {
 	/*TODO: Change this so that it stops moving if it's collided with something*/
-	if (position.z < -22) {	
+	if (position.z < -22) {
 		return;
 	}
 
 	position += _translation;
 	transformMat = glm::translate(transformMat, _translation);
-	for (int i = 0; i < boxes.size(); i++) {
+
+	for (int i = 0; i < myBoxCount; i++) {
 		boxes[i].parentTransformMat = transformMat;
 		boxes[i].Translate();
 	}
-	/*box1->parentTransformMat = transformMat;
-	box2->parentTransformMat = transformMat;
-	box3->parentTransformMat = transformMat;
-
-	box1->Translate();
-	box2->Translate();
-	box3->Translate();*/
 }
 void TetrisShape::Rotate(glm::vec3 _axis, float _degrees) {
 	rotMat = glm::rotate(IDENTITY_M4, _degrees, _axis);

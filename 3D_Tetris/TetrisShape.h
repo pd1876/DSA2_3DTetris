@@ -5,11 +5,14 @@
 
 class TetrisShape{
 	public:
-
+		//To keep track of how many boxes we've spawned in total so that each box has a unique id so the mesh manager can render each box
+		static int boxCount;
+		
 		//Well this line doesn't work because C++ is a fucking garbage language that's shit to use so I guess fuck good coding practices. Fuck c++ so hard
 		std::vector<Box> boxes;
-
-		//Is this the shape that the player is currently controlling?
+		
+		//Number of boxes might not line up with the actualy length of the boxes vector. This variable keeps track of how many boxes are in this shape
+		int myBoxCount;
 
 		//This is gonna have to do for now.
 		Box* box1;
@@ -17,6 +20,8 @@ class TetrisShape{
 		Box* box3;
 		Box* box4;
 		Box* box5;
+
+		MeshManagerSingleton* meshManager;
 
 		//Position isn't really used currently but it might be helpful later
 		glm::vec3 position;
@@ -49,6 +54,7 @@ class TetrisShape{
 		void Rotate(glm::vec3 _axis, float _degrees);
 		void DeleteBox();
 
+		TetrisShape(MeshManagerSingleton* _meshManager);
 		TetrisShape();
 		~TetrisShape();
 	private:

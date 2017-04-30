@@ -1,15 +1,21 @@
 #include "Box.h"
 
 
-
-Box::Box(){
+//We give Box a pointer to the mesh manager that AppClass is using to render models so that Box can load the correct model in
+//we give Box an unique int that will identify each box for the mesh manager so that it knows which box to render. Kind of shitty but it is what it is
+Box::Box(MeshManagerSingleton* _meshManager, int _boxID){
 	//Generate the Cube
-	boxModelPrim = new PrimitiveClass();
-	boxModelPrim->GenerateCube(2.0f, RERED);
+	/*boxModelPrim = new PrimitiveClass();
+	boxModelPrim->GenerateCube(2.0f, RERED);*/
 
-	SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	boxName = std::to_string(_boxID);
+	_meshManager->LoadModel("Portal\\CompanionCube.obj", boxName);
+
+	SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 }
+Box::Box() {
 
+}
 Box::~Box(){
 
 }

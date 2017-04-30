@@ -24,9 +24,8 @@ void AppClass::InitVariables(void)
 	leftPlane = new PrimitiveClass();
 	leftPlane->GeneratePlane(12.0f, RECYAN);
 
-
 	//Make a shape. This is what the player will be interacting with
-	testShape1 = new TetrisShape();
+	testShape1 = new TetrisShape(m_pMeshMngr); 
 
 	//Calculate the first projections
 	m_m4Projection = glm::perspective(45.0f, 1080.0f / 768.0f, 0.01f, 1000.0f);
@@ -40,14 +39,13 @@ void AppClass::Update(void)
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
-	//Test moving a box
-	//testBox1->Translate(glm::vec3(0.0f, 0.0f, -0.01f));
 
 	//Test moving the shape
 	testShape1->Translate(glm::vec3(0.0f, 0.0f, -0.05f));
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
+	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -69,12 +67,6 @@ void AppClass::Display(void){
 	rightPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->rightPlaneTransform);
 	leftPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->leftPlaneTransform);
 
-
-	//Old bad way of rendering all boxes
-	//Render all boxes in test shape. See TetrisShape.cpp for explanation as to why this isn't coded well. Fuck this language
-	/*testShape1->box1->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box1->transformMat);
-	testShape1->box2->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box2->transformMat);
-	testShape1->box3->boxModelPrim->Render(cam1->GetProjection(false), cam1->GetView(), testShape1->box3->transformMat);*/
 	testShape1->RenderBoxes(cam1);
 
 	m_pMeshMngr->Render(); //renders the render list
