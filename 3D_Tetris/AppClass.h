@@ -10,6 +10,7 @@ Date: 2015/09
 #include "Box.h"
 #include "TetrisShape.h"
 #include "Camera.h"
+
 //#include <chrono>
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
@@ -34,8 +35,6 @@ class AppClass : public ReEngAppClass
 	matrix4 m_m4Projection;
 	matrix4 m_m4View;
 
-	matrix4 coneMatrix;
-	matrix4 cylMatrix;
 public:
 	MyCamera* cam1;
 	typedef ReEngAppClass super;
