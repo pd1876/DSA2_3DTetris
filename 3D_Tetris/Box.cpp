@@ -9,7 +9,7 @@ Box::Box(MeshManagerSingleton* _meshManager, int _boxID){
 	boxModelPrim->GenerateCube(2.0f, RERED);*/
 
 	boxName = std::to_string(_boxID);
-	_meshManager->LoadModel("Portal\\CompanionCube.obj", boxName);
+	_meshManager->LoadModel("Portal\\CompanionCube.bto", boxName);
 
 	SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 }

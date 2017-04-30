@@ -39,6 +39,7 @@ void AppClass::Update(void)
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
+	testShape1->RenderBoxes(cam1);
 
 	//Test moving the shape
 	testShape1->Translate(glm::vec3(0.0f, 0.0f, -0.05f));
