@@ -1,0 +1,39 @@
+﻿  AppClass.cpp
+d:\3d_tetris\3d_tetris\appclass.cpp(36): warning C4018: '<': signed/unsigned mismatch
+d:\3d_tetris\3d_tetris\appclass.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\3d_tetris\3d_tetris\appclass.cpp(61): warning C4018: '<': signed/unsigned mismatch
+d:\3d_tetris\3d_tetris\appclass.cpp(76): warning C4018: '<': signed/unsigned mismatch
+  3D_Tetris.vcxproj -> D:\3d_tetris\Z_DELETE\3D_TetrisD.exe
+  A subdirectory or file D:\3d_tetris\_Binary\ already exists.
+  D:\3d_tetris\include\GL\bin\glew32.dll
+  D:\3d_tetris\include\GL\bin\glut32.dll
+  2 File(s) copied
+  D:\3d_tetris\include\RE\bin\2015\ReEng_VS15.dll
+  D:\3d_tetris\include\RE\bin\2015\ReEng_VS15_d.dll
+  2 File(s) copied
+  D:\3d_tetris\include\SFML\bin\sfml-system-2.dll
+  1 File(s) copied
+  D:\3d_tetris\include\SFML\bin\sfml-window-2.dll
+  1 File(s) copied
+  A subdirectory or file D:\3d_tetris\_Binary\Shaders\ already exists.
+  D:\3d_tetris\include\RE\Shaders\Basic.fs
+  D:\3d_tetris\include\RE\Shaders\Basic.vs
+  D:\3d_tetris\include\RE\Shaders\BasicColor.fs
+  D:\3d_tetris\include\RE\Shaders\BasicColor.vs
+  D:\3d_tetris\include\RE\Shaders\Color.fs
+  D:\3d_tetris\include\RE\Shaders\Color.vs
+  D:\3d_tetris\include\RE\Shaders\PassThrough.fs
+  D:\3d_tetris\include\RE\Shaders\PassThrough.vs
+  D:\3d_tetris\include\RE\Shaders\Phong.fs
+  D:\3d_tetris\include\RE\Shaders\Phong.vs
+  D:\3d_tetris\include\RE\Shaders\REShader.fs
+  D:\3d_tetris\include\RE\Shaders\REShader.vs
+  D:\3d_tetris\include\RE\Shaders\REShaderInv.fs
+  D:\3d_tetris\include\RE\Shaders\REShaderMC.fs
+  D:\3d_tetris\include\RE\Shaders\Skybox.fs
+  D:\3d_tetris\include\RE\Shaders\Skybox.vs
+  D:\3d_tetris\include\RE\Shaders\Test.fs
+  D:\3d_tetris\include\RE\Shaders\Test.vs
+  D:\3d_tetris\include\RE\Shaders\TextShader.fs
+  D:\3d_tetris\include\RE\Shaders\TextShader.vs
+  20 File(s) copied

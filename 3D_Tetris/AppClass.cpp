@@ -32,6 +32,10 @@ void AppClass::InitVariables(void)
 	m_m4View = glm::lookAt(glm::vec3(0.0f, 0.0f, 40.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	cam1->SetView(m_m4View);
+	BO_Mngr = MyBOManager::GetInstance();
+	for (int i = 0; i < testShape1->boxes.size(); i++) {
+		BO_Mngr->AddObject(testShape1->meshManager->GetVertexList(i),std::to_string(i+1));
+	}
 }
 
 void AppClass::Update(void)
@@ -53,7 +57,13 @@ void AppClass::Update(void)
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
-	
+
+	for (int i = 0; i < testShape1->boxes.size(); i++) {
+		BO_Mngr->SetModelMatrix(testShape1->boxes[i].transformMat, std::to_string(i + 1));
+	}
+	BO_Mngr->Update();
+	BO_Mngr->DisplayReAlligned();
+	//BO_Mngr->DisplayOriented(-1,REWHITE);
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList("Skybox_Tetris.png");
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -63,6 +73,10 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("Score: 0"); // See above
 	m_pMeshMngr->Print("Time passed: ");
 	m_pMeshMngr->PrintLine(std::to_string(gameTimer)); // Let's player see game time
+	for (int i = 0; i < testShape1->boxes.size(); i++) {
+		m_pMeshMngr->PrintLine("Hello");
+	}
+	
 }
 
 void AppClass::Display(void){
@@ -98,6 +112,7 @@ void AppClass::Release(void)
 	SafeDelete(leftPlane);
 
 	SafeDelete(gameManager);
+	SafeDelete(testShape1);
 	//Release the memory of the inherited fields
 	super::Release(); 
 }
