@@ -49,8 +49,20 @@ class TetrisShape{
 		//Creates five box line shape
 		void InitLineBoxes();
 
-		//Creates four box cross shape
+		//Creates five box cross shape
 		void InitCrossBoxes();
+
+		//Creates five box Z shape
+		void InitZBoxes();
+
+		//Creates five box reverse Z shape
+		void InitReverseZBoxes();
+
+		//Creates five box L shape
+		void InitLBoxes();
+
+		//Creates five box reverse L shape
+		void InitReverseLBoxes();
 
 		//blackboxing rendering this shape's boxes
 		void RenderBoxes(MyCamera* camera);

@@ -14,9 +14,26 @@ TetrisShape::TetrisShape(MeshManagerSingleton * _meshManager){
 	velocity = vector3(0.01f);
 	acceleration = vector3(0.0f, 0.0f, -0.001f);
 
+	isFalling = true;
 
+	srand(time(NULL));
 
-	InitCrossBoxes();
+	switch (rand() % 6) {
+	case 0: InitLineBoxes();
+		break;
+	case 1: InitCrossBoxes();
+		break;
+	case 2: InitZBoxes();
+		break;
+	case 3: InitReverseZBoxes();
+		break;
+	case 4: InitLBoxes();
+		break;
+	case 5: InitReverseLBoxes();
+		break;
+	default: InitLineBoxes();
+		break;
+	}
 }
 
 TetrisShape::~TetrisShape(){
@@ -25,22 +42,27 @@ TetrisShape::~TetrisShape(){
 
 void TetrisShape::InitLineBoxes() {
 	//See box constructor for explanation
-	myBoxCount = 3;
+	myBoxCount = 5;
 
 	box1 = new Box(meshManager, 1);
 	box2 = new Box(meshManager, 2);
 	box3 = new Box(meshManager, 3);
+	box4 = new Box(meshManager, 4);
+	box5 = new Box(meshManager, 5);
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
 	boxes.push_back(*box3);
+	boxes.push_back(*box4);
+	boxes.push_back(*box5);
 
 	boxes[0].SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	boxes[1].SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
-	boxes[2].SetPosition(glm::vec3(4.0f, 0.0f, 0.0f));
+	boxes[1].SetPosition(glm::vec3(1.0f, 0.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+	boxes[3].SetPosition(glm::vec3(3.0f, 0.0f, 0.0f));
+	boxes[4].SetPosition(glm::vec3(4.0f, 0.0f, 0.0f));
 
 }
-
 void TetrisShape::InitCrossBoxes() {
 	//See box constructor for explanation
 
@@ -71,6 +93,94 @@ void TetrisShape::InitCrossBoxes() {
 
 
 }
+void TetrisShape::InitZBoxes() {
+
+	myBoxCount = 5;
+
+	box1 = new Box(meshManager, 1);
+	box2 = new Box(meshManager, 2);
+	box3 = new Box(meshManager, 3);
+	box4 = new Box(meshManager, 4);
+	box5 = new Box(meshManager, 5);
+
+	boxes.push_back(*box1);
+	boxes.push_back(*box2);
+	boxes.push_back(*box3);
+	boxes.push_back(*box4);
+	boxes.push_back(*box5);
+
+	boxes[0].SetPosition(glm::vec3(0.0f));
+	boxes[1].SetPosition(glm::vec3(0.0f, 1.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(1.0f, 1.0f, 0.0f));
+	boxes[3].SetPosition(glm::vec3(-1.0f, 0.0f, 0.0f));
+	boxes[4].SetPosition(glm::vec3(-2.0f, 0.0f, 0.0f));
+}
+void TetrisShape::InitReverseZBoxes() {
+
+	myBoxCount = 5;
+
+	box1 = new Box(meshManager, 1);
+	box2 = new Box(meshManager, 2);
+	box3 = new Box(meshManager, 3);
+	box4 = new Box(meshManager, 4);
+	box5 = new Box(meshManager, 5);
+
+	boxes.push_back(*box1);
+	boxes.push_back(*box2);
+	boxes.push_back(*box3);
+	boxes.push_back(*box4);
+	boxes.push_back(*box5);
+
+	boxes[0].SetPosition(glm::vec3(0.0f));
+	boxes[1].SetPosition(glm::vec3(0.0f, -1.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(-1.0f, -1.0f, 0.0f));
+	boxes[3].SetPosition(glm::vec3(1.0f, 0.0f, 0.0f));
+	boxes[4].SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+}
+void TetrisShape::InitLBoxes() {
+
+	myBoxCount = 5;
+
+	box1 = new Box(meshManager, 1);
+	box2 = new Box(meshManager, 2);
+	box3 = new Box(meshManager, 3);
+	box4 = new Box(meshManager, 4);
+	box5 = new Box(meshManager, 5);
+
+	boxes.push_back(*box1);
+	boxes.push_back(*box2);
+	boxes.push_back(*box3);
+	boxes.push_back(*box4);
+	boxes.push_back(*box5);
+
+	boxes[0].SetPosition(glm::vec3(0.0f));
+	boxes[1].SetPosition(glm::vec3(0.0f, 1.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+	boxes[3].SetPosition(glm::vec3(-1.0f, 0.0f, 0.0f));
+	boxes[4].SetPosition(glm::vec3(-2.0f, 0.0f, 0.0f));
+}
+void TetrisShape::InitReverseLBoxes() {
+
+	myBoxCount = 5;
+
+	box1 = new Box(meshManager, 1);
+	box2 = new Box(meshManager, 2);
+	box3 = new Box(meshManager, 3);
+	box4 = new Box(meshManager, 4);
+	box5 = new Box(meshManager, 5);
+
+	boxes.push_back(*box1);
+	boxes.push_back(*box2);
+	boxes.push_back(*box3);
+	boxes.push_back(*box4);
+	boxes.push_back(*box5);
+
+	boxes[0].SetPosition(glm::vec3(0.0f));
+	boxes[1].SetPosition(glm::vec3(0.0f, 1.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+	boxes[3].SetPosition(glm::vec3(1.0f, 0.0f, 0.0f));
+	boxes[4].SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+}
 void TetrisShape::RenderBoxes(MyCamera* renderCam) { 
 	//std::cout << "Num boxes to render: " << boxes.size() << std::endl;
 
@@ -81,12 +191,6 @@ void TetrisShape::RenderBoxes(MyCamera* renderCam) {
 		//Rendering with models
 		meshManager->SetModelMatrix(boxes[i].transformMat, i);
 	}
-
-	/*meshManager->SetModelMatrix(box1->transformMat, box1->boxName);
-	meshManager->SetModelMatrix(box2->transformMat, box2->boxName);
-	meshManager->SetModelMatrix(box3->transformMat, box3->boxName);
-	meshManager->SetModelMatrix(box4->transformMat, box4->boxName);
-	meshManager->SetModelMatrix(box5->transformMat, box5->boxName);*/
 
 }
 void TetrisShape::Fall() {

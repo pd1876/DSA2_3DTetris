@@ -8,6 +8,9 @@ void AppClass::InitVariables(void)
 	//Make 6 cameras
 	cam1 = new MyCamera();
 
+	// Resize blocks array
+	blocks.resize(20); 
+
 	//Make the game manager. Currently just handles orienting the sides correctly
 	gameManager = new GameManager();
 
@@ -25,7 +28,7 @@ void AppClass::InitVariables(void)
 	leftPlane->GeneratePlane(12.0f, RECYAN);
 
 	//Make a shape. This is what the player will be interacting with
-	testShape1 = new TetrisShape(m_pMeshMngr); 
+	testShape1 = new TetrisShape(m_pMeshMngr);
 
 	//Calculate the first projections
 	m_m4Projection = glm::perspective(45.0f, 1080.0f / 768.0f, 0.01f, 1000.0f);

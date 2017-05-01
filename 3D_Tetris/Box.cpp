@@ -9,8 +9,6 @@ Box::Box(MeshManagerSingleton* _meshManager, int _boxID){
 	boxModelPrim->GenerateCube(2.0f, RERED);*/
 
 	boxName = std::to_string(_boxID);
-	
-	std::cout << "Box Name: " << boxName << std::endl;
 
 	_meshManager->LoadModel("Portal\\CompanionCube.bto", boxName);
 

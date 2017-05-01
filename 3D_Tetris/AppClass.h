@@ -32,6 +32,9 @@ class AppClass : public ReEngAppClass
 	TetrisShape* testShape1 = nullptr;
 	Box* testBox1 = nullptr;
 
+	// Array of blocks to keep track of our blocks
+	std::vector<TetrisShape> blocks;
+
 	matrix4 m_m4Projection;
 	matrix4 m_m4View;
 
