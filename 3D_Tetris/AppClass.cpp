@@ -39,20 +39,30 @@ void AppClass::Update(void)
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
-	testShape1->RenderBoxes(cam1);
+	// Setting up game clock to print out for player -- From Ex01_A solution
+	static float gameTimer = 0.0f; // Creates new timer
+	static uint gameClock = m_pSystem->GenClock(); // Asks system for new clock id
+	float deltaTime = m_pSystem->LapClock(); // Laps selected clock
+	gameTimer += deltaTime; // Adds delta time to current clock
 
 	//Test moving the shape
-	testShape1->Translate(glm::vec3(0.0f, 0.0f, -0.05f));
+	//testShape1->Translate(glm::vec3(0.0f, 0.0f, -0.05f));
+
+	// Test the shapes falling
+	testShape1->Fall();
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
 	
 	//Adds all loaded instance to the render list
+	m_pMeshMngr->AddSkyboxToRenderList("Skybox_Tetris.png");
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
 	m_pMeshMngr->PrintLine("3D Tetris", REBLACK);
 	m_pMeshMngr->PrintLine("Level: 1"); // Currently hardcoding to see it, will fix later
 	m_pMeshMngr->PrintLine("Score: 0"); // See above
+	m_pMeshMngr->Print("Time passed: ");
+	m_pMeshMngr->PrintLine(std::to_string(gameTimer)); // Let's player see game time
 }
 
 void AppClass::Display(void){

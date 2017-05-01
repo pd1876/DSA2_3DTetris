@@ -10,6 +10,12 @@ TetrisShape::TetrisShape(MeshManagerSingleton * _meshManager){
 	meshManager = _meshManager;
 	boxes.resize(20);
 
+	mass = 1.0f;
+	velocity = vector3(0.01f);
+	acceleration = vector3(0.0f, 0.0f, -0.001f);
+
+
+
 	InitCrossBoxes();
 }
 
@@ -25,13 +31,14 @@ void TetrisShape::InitLineBoxes() {
 	box2 = new Box(meshManager, 2);
 	box3 = new Box(meshManager, 3);
 
-	box1->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	box2->SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
-	box3->SetPosition(glm::vec3(4.0f, 0.0f, 0.0f));
-
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
 	boxes.push_back(*box3);
+
+	boxes[0].SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	boxes[1].SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(4.0f, 0.0f, 0.0f));
+
 }
 
 void TetrisShape::InitCrossBoxes() {
@@ -81,6 +88,22 @@ void TetrisShape::RenderBoxes(MyCamera* renderCam) {
 	meshManager->SetModelMatrix(box4->transformMat, box4->boxName);
 	meshManager->SetModelMatrix(box5->transformMat, box5->boxName);*/
 
+}
+void TetrisShape::Fall() {
+	if (position.z < -22) {
+		isFalling = false;
+		return;
+	}
+
+	velocity += acceleration * mass;
+	position += velocity;
+
+	transformMat = glm::translate(transformMat, velocity);
+
+	for (int i = 0; i < myBoxCount; i++) {
+		boxes[i].parentTransformMat = transformMat;
+		boxes[i].Translate();
+	}
 }
 void TetrisShape::Translate(glm::vec3 _translation) {
 	/*TODO: Change this so that it stops moving if it's collided with something*/

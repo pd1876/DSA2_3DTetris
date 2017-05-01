@@ -26,6 +26,14 @@ class TetrisShape{
 		//Position isn't really used currently but it might be helpful later
 		glm::vec3 position;
 
+		// Let's declare some physics variables
+		float mass;
+		vector3 velocity;
+		vector3 acceleration;
+
+		// Check for if something is actively falling
+		bool isFalling;
+
 		//Also not currently in use but same deal
 		glm::vec3 pivotPoint;
 
@@ -46,6 +54,9 @@ class TetrisShape{
 
 		//blackboxing rendering this shape's boxes
 		void RenderBoxes(MyCamera* camera);
+
+		// Makes the blocks fall due to physics!
+		void Fall();
 
 		//Moves the TetrisShape's model matrix along with its boxes model matrices
 		void Translate(glm::vec3 _translation);
