@@ -70,15 +70,25 @@ void TetrisShape::RenderBoxes(MyCamera* renderCam) {
 		//boxes[i].boxModelPrim->Render(renderCam->GetProjection(false), renderCam->GetView(), boxes[i].transformMat);
 
 		//Rendering with models
-		meshManager->SetModelMatrix(boxes[i].transformMat, boxes[i].boxName);
+		std::cout << "rendering box : " << i<< std::endl;
+		std::cout << "rendering box : " << boxes[i].boxName << std::endl;	
+
+		meshManager->SetModelMatrix(boxes[i].transformMat, i);
 	}
+
+	/*meshManager->SetModelMatrix(box1->transformMat, box1->boxName);
+	meshManager->SetModelMatrix(box2->transformMat, box2->boxName);
+	meshManager->SetModelMatrix(box3->transformMat, box3->boxName);
+	meshManager->SetModelMatrix(box4->transformMat, box4->boxName);
+	meshManager->SetModelMatrix(box5->transformMat, box5->boxName);*/
+
 }
 void TetrisShape::Translate(glm::vec3 _translation) {
 	/*TODO: Change this so that it stops moving if it's collided with something*/
 	if (position.z < -22) {
 		return;
 	}
-
+	//std::cout << "Translating" << std::endl;
 	position += _translation;
 	transformMat = glm::translate(transformMat, _translation);
 
