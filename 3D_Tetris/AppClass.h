@@ -10,6 +10,7 @@ Date: 2015/09
 #include "Box.h"
 #include "TetrisShape.h"
 #include "Camera.h"
+#include "MyBOManager.h"
 
 //#include <chrono>
 
@@ -37,6 +38,7 @@ class AppClass : public ReEngAppClass
 
 	matrix4 m_m4Projection;
 	matrix4 m_m4View;
+	MyBOManager* BO_Mngr = nullptr;
 
 public:
 	MyCamera* cam1;
