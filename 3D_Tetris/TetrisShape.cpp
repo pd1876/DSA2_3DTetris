@@ -45,22 +45,24 @@ void TetrisShape::InitCrossBoxes() {
 	box4 = new Box(meshManager, 4);
 	box5 = new Box(meshManager, 5);
 
-	//Center
-	box1->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	
-	//Left and right
-	box2->SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
-	box3->SetPosition(glm::vec3(-2.0f, 0.0f, 0.0f));
-
-	//Top and bottom
-	box4->SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
-	box5->SetPosition(glm::vec3(0.0f, -2.0f, 0.0f));
-
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
 	boxes.push_back(*box3);
 	boxes.push_back(*box4);
 	boxes.push_back(*box5);
+
+	//Center
+	boxes[0].SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	
+	//Left and right
+	boxes[1].SetPosition(glm::vec3(1.0f, 0.0f, 0.0f));
+	boxes[2].SetPosition(glm::vec3(-1.0f, 0.0f, 0.0f));
+
+	//Top and bottom
+	boxes[3].SetPosition(glm::vec3(0.0f, 1.0f, 0.0f));
+	boxes[4].SetPosition(glm::vec3(0.0f, -1.0f, 0.0f));
+
+
 }
 void TetrisShape::RenderBoxes(MyCamera* renderCam) { 
 	//std::cout << "Num boxes to render: " << boxes.size() << std::endl;
@@ -70,9 +72,6 @@ void TetrisShape::RenderBoxes(MyCamera* renderCam) {
 		//boxes[i].boxModelPrim->Render(renderCam->GetProjection(false), renderCam->GetView(), boxes[i].transformMat);
 
 		//Rendering with models
-		std::cout << "rendering box : " << i<< std::endl;
-		std::cout << "rendering box : " << boxes[i].boxName << std::endl;	
-
 		meshManager->SetModelMatrix(boxes[i].transformMat, i);
 	}
 
