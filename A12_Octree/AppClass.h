@@ -12,6 +12,8 @@ class AppClass : public ReEngAppClass {
 	// Pointer to the BO manager
 	BOManager* m_pBOMngr;
 
+	int numCubes;
+
 public:
 	typedef ReEngAppClass super;
 
@@ -20,6 +22,12 @@ public:
 
 	// Destructor for the class
 	~AppClass(void) { Release(); }
+
+	//Spawn a whole bunch of shapes
+	void SpawnCubes(int _numCubes);
+
+	//Update model matrices and BOs for the cubes
+	void UpdateCubes();
 
 	// Reads config of app to file
 	virtual void ReadConfig(void) final {}

@@ -16,17 +16,34 @@ void AppClass::InitWindow(String a_sWindowName)
 
 void AppClass::InitVariables(void)
 {
-	//Load Models - I really like my companion cubes
-	m_pMeshMngr->LoadModel("Portal\\CompanionCube.bto", "Cubie");
-
+	SpawnCubes(600);
+}
+void AppClass::SpawnCubes(int _numCubes) {
 	// Load the bounding object manager
 	m_pBOMngr = BOManager::GetInstance();
+	numCubes = _numCubes;
 
-	// Add cubie to the bounding object manager
-	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Cubie"), "Cubie");
+	for (int i = 0; i < _numCubes; i++) {
+		std::string modelName = "Cube" + i;
+		//Load Models - I really like my companion cubes
+		m_pMeshMngr->LoadModel("Portal\\CompanionCube.bto", modelName);
 
+		// Add cubie to the bounding object manager
+		m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList(modelName), modelName);
+
+
+		// Lets put one cube in the scene for right now
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(glm::linearRand(-10.0f, 10.0f), glm::linearRand(-10.0f, 10.0f), glm::linearRand(-10.0f, 10.0f))), modelName);
+	}
 }
+void AppClass::UpdateCubes() {
+	for (int i = 0; i < numCubes; i++) {
+		std::string modelName = "Cube" + i;
 
+		// Set model matrix to bounding object
+		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix(modelName), modelName);
+	}
+}
 void AppClass::Update(void) 
 {
 	// Update system's time
@@ -35,11 +52,7 @@ void AppClass::Update(void)
 	// Update mesh manager's time w/out updating collision detection
 	m_pMeshMngr->Update();
 
-	// Lets put one cube in the scene for right now
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f)), "Cubie");
-
-	// Set model matrix to bounding object
-	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cubie"), "Cubie");
+	UpdateCubes();
 
 	// Updates bounding object manager
 	m_pBOMngr->Update();
