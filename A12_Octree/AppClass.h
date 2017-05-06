@@ -12,6 +12,7 @@ class AppClass : public ReEngAppClass {
 	// Pointer to the BO manager
 	BOManager* m_pBOMngr;
 
+	// How many cubes we want
 	int numCubes;
 
 public:

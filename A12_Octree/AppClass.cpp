@@ -17,14 +17,21 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 	SpawnCubes(600);
+
+	// Set up the camera away from the cubes
+	m_pCameraMngr->SetPositionTargetAndView(
+		vector3(0.0f, 2.5f, 40.0f),//Camera position
+		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
+		REAXISY);//What is up
 }
+
 void AppClass::SpawnCubes(int _numCubes) {
 	// Load the bounding object manager
 	m_pBOMngr = BOManager::GetInstance();
 	numCubes = _numCubes;
 
 	for (int i = 0; i < _numCubes; i++) {
-		std::string modelName = "Cube" + i;
+		std::string modelName = "Cubie" + i;
 		//Load Models - I really like my companion cubes
 		m_pMeshMngr->LoadModel("Portal\\CompanionCube.bto", modelName);
 
@@ -32,13 +39,13 @@ void AppClass::SpawnCubes(int _numCubes) {
 		m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList(modelName), modelName);
 
 
-		// Lets put one cube in the scene for right now
+		// Lets put one cubie in the scene for right now
 		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(glm::linearRand(-10.0f, 10.0f), glm::linearRand(-10.0f, 10.0f), glm::linearRand(-10.0f, 10.0f))), modelName);
 	}
 }
 void AppClass::UpdateCubes() {
 	for (int i = 0; i < numCubes; i++) {
-		std::string modelName = "Cube" + i;
+		std::string modelName = "Cubie" + i;
 
 		// Set model matrix to bounding object
 		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix(modelName), modelName);
