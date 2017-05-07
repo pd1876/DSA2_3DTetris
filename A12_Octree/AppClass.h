@@ -15,6 +15,9 @@ class AppClass : public ReEngAppClass {
 	// How many cubes we want
 	int numCubes;
 
+	//Are we uing Spatial Optimization
+	bool spatialOptEnabled;
+
 public:
 	typedef ReEngAppClass super;
 

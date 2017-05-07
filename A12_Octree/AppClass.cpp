@@ -74,9 +74,12 @@ void AppClass::Update(void)
 	int nFPS = m_pSystem->GetFPS();
 
 	// Let's print that shall we (and pretend I understand this syntax)
-	printf("FPS: %d        \r", nFPS);
+	//printf("FPS: %d        \r", nFPS);
 
 	// TODO print other stuff
+	//(x == y) ? a : b
+	m_pMeshMngr->PrintLine("Spatial Optimization :" + (spatialOptEnabled == true) ? "Enabled" : "Disabled");
+	m_pMeshMngr->PrintLine("FPS: " + nFPS);
 }
 
 void AppClass::Display(void) 
