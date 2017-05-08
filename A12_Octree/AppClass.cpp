@@ -20,7 +20,7 @@ void AppClass::InitVariables(void)
 
 	// Set up the camera away from the cubes
 	m_pCameraMngr->SetPositionTargetAndView(
-		vector3(0.0f, 2.5f, 40.0f),//Camera position
+		vector3(0.0f, 2.5f, 60.0f),//Camera position
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
 }
@@ -43,6 +43,52 @@ void AppClass::SpawnCubes(int _numCubes) {
 		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(glm::linearRand(-10.0f, 10.0f), glm::linearRand(-10.0f, 10.0f), glm::linearRand(-10.0f, 10.0f))), modelName);
 	}
 }
+void AppClass::RenderOctree() {
+	// temp min max and center values
+	vector3 _center;
+	vector3 _min;
+	vector3 _max;
+	vector3 _halfWidth;
+
+	octree = Octree::getInstance();
+	
+	// loop through each object
+	for (int i = 0; i < numCubes; i++) {
+		std::string modelName = "Cubie" + i;
+		BOClass* cube = m_pBOMngr->GetBoundingObject(modelName);
+		vector3 cubeMin = cube->GetMinG();
+		vector3 cubeMax = cube->GetMaxG();
+
+		// if first cube imediately set min and max
+		if (i == 0) {
+			_min = cubeMin;
+			_max = cubeMax;
+		}
+		else {
+			if (_min.x > cubeMin.x) //If min is larger than cube's min
+				_min.x = cubeMin.x;
+			else if (_max.x < cubeMax.x)//if max is smaller than cube's max
+				_max.x = cubeMax.x;
+
+			if (_min.y > cubeMin.y) //If min is larger than cube's min
+				_min.y = cubeMin.y;
+			else if (_max.y < cubeMax.y)//if max is smaller than cube's max
+				_max.y = cubeMax.y;
+
+			if (_min.z > cubeMin.z) //If min is larger than cube's min
+				_min.z = cubeMin.z;
+			else if (_max.z < cubeMax.z)//if max is smaller than cube's max
+				_max.z = cubeMax.z;
+		}
+	}
+
+	// calculate the center
+	_center = (_max + _min) / 2.0f;
+
+	_halfWidth = (_max - _min) / 2.0f;
+
+	octree->displayOctree(_center, _min, _max, _halfWidth);
+}
 void AppClass::UpdateCubes() {
 	for (int i = 0; i < numCubes; i++) {
 		std::string modelName = "Cubie" + i;
@@ -60,6 +106,8 @@ void AppClass::Update(void)
 	m_pMeshMngr->Update();
 
 	UpdateCubes();
+
+	RenderOctree();
 
 	// Updates bounding object manager
 	m_pBOMngr->Update();

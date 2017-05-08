@@ -4,6 +4,7 @@
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
 #include "BOManager.h"
+#include "Octree.h"
 
 using namespace ReEng; 
 
@@ -12,12 +13,14 @@ class AppClass : public ReEngAppClass {
 	// Pointer to the BO manager
 	BOManager* m_pBOMngr;
 
+	// Octree
+	Octree* octree;
+
 	// How many cubes we want
 	int numCubes;
 
 	//Are we uing Spatial Optimization
 	bool spatialOptEnabled;
-
 public:
 	typedef ReEngAppClass super;
 
@@ -32,6 +35,8 @@ public:
 
 	//Update model matrices and BOs for the cubes
 	void UpdateCubes();
+
+	void RenderOctree();
 
 	// Reads config of app to file
 	virtual void ReadConfig(void) final {}
@@ -59,7 +64,6 @@ public:
 
 	// Releases application
 	virtual void Release(void) final;
-
 };
 
 #endif // !_APPLICATION_H_
