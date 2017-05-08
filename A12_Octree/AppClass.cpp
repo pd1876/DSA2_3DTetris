@@ -87,7 +87,7 @@ void AppClass::RenderOctree() {
 
 	_halfWidth = (_max - _min) / 2.0f;
 
-	octree->displayOctree(_center, _min, _max, _halfWidth);
+	octree->displayOctree(_center, _min, _max, _halfWidth, 3.0f);
 }
 void AppClass::UpdateCubes() {
 	for (int i = 0; i < numCubes; i++) {

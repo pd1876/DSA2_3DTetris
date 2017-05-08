@@ -24,7 +24,7 @@ public:
 	static Octree* getInstance();
 
 	// display the octree
-	void displayOctree(vector3 _center, vector3 _min, vector3 _max, vector3 _halfWidth);
+	void displayOctree(vector3 _center, vector3 _min, vector3 _max, vector3 _halfWidth, float counter);
 
 	// Destructor
 	~Octree();
