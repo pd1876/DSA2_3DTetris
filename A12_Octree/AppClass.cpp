@@ -16,12 +16,12 @@ void AppClass::InitWindow(String a_sWindowName)
 
 void AppClass::InitVariables(void)
 {
-	SpawnCubes(600);
+	SpawnCubes(650);
 
 	// Set up the camera away from the cubes
 	m_pCameraMngr->SetPositionTargetAndView(
-		vector3(0.0f, 2.5f, 60.0f),//Camera position
-		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
+		vector3(0.0f, 0.5f, 60.0f),//Camera position
+		vector3(0.0f, 0.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
 }
 
@@ -95,6 +95,9 @@ void AppClass::UpdateCubes() {
 
 		// Set model matrix to bounding object
 		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix(modelName), modelName);
+
+		// Display bounding frame of object
+		m_pBOMngr->DisplayReAlligned(modelName);
 	}
 }
 void AppClass::Update(void) 
@@ -105,6 +108,7 @@ void AppClass::Update(void)
 	// Update mesh manager's time w/out updating collision detection
 	m_pMeshMngr->Update();
 
+	// Updates cube based stuff
 	UpdateCubes();
 
 	RenderOctree();
@@ -112,17 +116,11 @@ void AppClass::Update(void)
 	// Updates bounding object manager
 	m_pBOMngr->Update();
 
-	// We have cubes, let's display cubes
-	m_pBOMngr->DisplayReAlligned();
-
 	// Adds all loaded instances to render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
 	// Indicates FPS
 	int nFPS = m_pSystem->GetFPS();
-
-	// Let's print that shall we (and pretend I understand this syntax)
-	//printf("FPS: %d        \r", nFPS);
 
 	// TODO print other stuff
 	//(x == y) ? a : b
