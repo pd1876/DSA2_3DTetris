@@ -191,7 +191,6 @@ void TetrisShape::RenderBoxes(MyCamera* renderCam) {
 		//Rendering with models
 		meshManager->SetModelMatrix(boxes[i].transformMat, i);
 	}
-
 }
 void TetrisShape::Fall() {
 	if (position.z < -22) {
@@ -215,7 +214,7 @@ void TetrisShape::Translate(glm::vec3 _translation) {
 		return;
 	}
 	//std::cout << "Translating" << std::endl;
-	position += _translation;
+	position += (_translation * transSpeed);
 	transformMat = glm::translate(transformMat, _translation);
 
 	for (int i = 0; i < myBoxCount; i++) {
@@ -224,7 +223,7 @@ void TetrisShape::Translate(glm::vec3 _translation) {
 	}
 }
 void TetrisShape::Rotate(glm::vec3 _axis, float _degrees) {
-	rotMat = glm::rotate(IDENTITY_M4, _degrees, _axis);
+	rotMat = glm::rotate(IDENTITY_M4, _degrees * rotateAngle, _axis);
 	transformMat *= rotMat;
 
 	box1->parentTransformMat = transformMat;

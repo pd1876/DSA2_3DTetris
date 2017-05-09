@@ -16,85 +16,55 @@ void AppClass::ProcessKeyboard(void)
 			if(pressed){											\
 				if(!bLast##key) pressed_action;}/*Just pressed? */\
 			else if(bLast##key) released_action;/*Just released?*/\
-			bLast##key = pressed; } //remember the state
+			bLast##key = pressed;} //remember the state
 #pragma endregion
 	
-	// John's Previous Camera Code
-	/*
-	cam1->mousedX = sf::Mouse::getPosition().x - cam1->mouseXLastFrame;
-	cam1->mousedY = sf::Mouse::getPosition().y - cam1->mouseYLastFrame;
-	
-	cam1->mouseXLastFrame = sf::Mouse::getPosition().x;
-	cam1->mouseYLastFrame = sf::Mouse::getPosition().y;
-
-	//Change Yaw
-	if (cam1->mousedX > 0) {
-		cam1->ChangeYaw(cam1->mousedX * cam1->mouseSensitivityHoriz);
-	}
-
-	if (cam1->mousedX < 0) {
-		cam1->ChangeYaw(cam1->mousedX * cam1->mouseSensitivityHoriz);
-	}
-
-
-	/*Change Pitch
-	if (cam1->mousedY > 0) {
-		cam1->ChangePitch(cam1->mousedY * cam1->mouseSensitivityVert);
-	}
-
-	if (cam1->mousedY < 0) {
-		cam1->ChangePitch(cam1->mousedY * cam1->mouseSensitivityVert);
-	}*/
-
 
 	//Forward / Backward
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		testShape1->Translate(glm::vec3(0.0f, 0.05f, 0.0f));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+		if(!keyDown) testShape1->Translate(glm::vec3(0.0f, 0.05f, 0.0f));
 		//cam1->MoveForward(0.2f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		testShape1->Translate(glm::vec3(0.0f, -0.05f, 0.0f));
-		//cam1->MoveForward(-0.2f);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+		if (!keyDown) {
+			testShape1->Translate(glm::vec3(0.0f, -1, 0.0f));
+			keyDown = true;
+		}
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+		if (!keyDown) {
+			testShape1->Translate(glm::vec3(-1, 0.0f, 0.0f));
+			keyDown = true;
+		}
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+		if (!keyDown) {
+			testShape1->Translate(glm::vec3(1, 0.0f, 0.0f));
+			keyDown = true;
+		}
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		if (!keyDown) {
+			testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), 1);
+			keyDown = true;
+		}
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		if (!keyDown) {
+			testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), -1);
+			keyDown = true;
+		}
+	} else	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		if (!keyDown) {
+			testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), 1);
+			keyDown = true;
+		}
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+		if (!keyDown) {
+			testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), -1);
+			keyDown = true;
+		}
+	} else {
+		keyDown = false;
 	}
 
-	//Right / Left
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		testShape1->Translate(glm::vec3(-0.05f, 0.0f, 0.0f));
-		//cam1->MoveSideways(0.2f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		//cam1->MoveSideways(-0.2f);
-		testShape1->Translate(glm::vec3(0.05f, 0.0f, 0.0f));
-	}
 
 
-	//Rotate Right / Left
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), 1);
-		//cam1->MoveSideways(0.2f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		//cam1->MoveSideways(-0.2f);
-		testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), -1);
-	}
-
-	//Rotate up / down
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), 1);
-		//cam1->MoveSideways(0.2f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		//cam1->MoveSideways(-0.2f);
-		testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), -1);
-	}
 
 	// Camera on Z-axis
 	// Facing Front

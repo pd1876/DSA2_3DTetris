@@ -18,6 +18,8 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
+	bool keyDown;
+
 	GameManager* gameManager = nullptr;
 
 	//Sides of the game

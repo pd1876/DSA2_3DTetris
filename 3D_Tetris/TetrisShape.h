@@ -7,7 +7,8 @@ class TetrisShape{
 	public:
 		//To keep track of how many boxes we've spawned in total so that each box has a unique id so the mesh manager can render each box
 		static int boxCount;
-		
+		float transSpeed = 400.0f;
+		float rotateAngle = 90.0f;
 		//Well this line doesn't work because C++ is a fucking garbage language that's shit to use so I guess fuck good coding practices. Fuck c++ so hard
 		std::vector<Box> boxes;
 		
@@ -27,6 +28,7 @@ class TetrisShape{
 		glm::vec3 position;
 
 		// Let's declare some physics variables
+
 		float mass;
 		vector3 velocity;
 		vector3 acceleration;
