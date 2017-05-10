@@ -73,9 +73,12 @@ void AppClass::DisplayAllShapes() {
 	currentShape->RenderBoxes(cam1);
 }
 void AppClass::UpdateAllBOs() {
-	for (int i = 0; i < shapeCount; i++) {
+	for (int i = 0; i < shapes.size(); i++) {
 		for (int j = 0; j < shapes[i].boxes.size(); j++) {
-			BO_Mngr->SetModelMatrix(shapes[i].boxes[i].transformMat, shapes[i].boxes[j].boxName);
+			std::cout << "Displaying BO for box " << shapes[i].boxes[j].boxName <<std::endl;
+			BO_Mngr->SetModelMatrix(shapes[i].boxes[j].transformMat, shapes[i].boxes[j].boxName);
+			BO_Mngr->DisplayReAlligned(shapes[i].boxes[j].boxName, RERED);
+			//BO_Mngr->DisplayOriented(shapes[i].boxes[j].boxName, RERED);
 		}
 	}
 }
@@ -99,12 +102,12 @@ void AppClass::Update(void)
 	m_pMeshMngr->Update();
 	//std::cout << "Shapes: " << shapeCount << std::endl;
 
-	/*for (int j = 0; j < currentShape->boxes.size(); j++) {
+	for (int j = 0; j < currentShape->boxes.size(); j++) {
 		//std::cout << "Box: " << j << std::endl;
-		BO_Mngr->SetModelMatrix(currentShape->boxes[j].transformMat, std::to_string(j + 1));
-	}*/
+		BO_Mngr->SetModelMatrix(currentShape->boxes[j].transformMat, std::to_string(currentShape->boxes[j].boxID));
+	}
 
-	UpdateAllBOs();
+	//UpdateAllBOs();
 
 	BO_Mngr->Update();
 	BO_Mngr->DisplayReAlligned();
