@@ -22,7 +22,12 @@ void AppClass::ProcessKeyboard(void)
 
 	//Forward / Backward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		if(!keyDown) currentShape->Translate(glm::vec3(0.0f, 0.05f, 0.0f));
+		if (!keyDown) {
+			if (!keyDown) {
+				currentShape->Translate(glm::vec3(0.0f, 1, 0.0f));
+				keyDown = true;
+			}
+		}
 		//cam1->MoveForward(0.2f);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		if (!keyDown) {
