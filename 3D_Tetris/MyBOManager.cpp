@@ -64,11 +64,11 @@ void MyBOManager::AddObject(String a_sName)
 void MyBOManager::AddObject(std::vector<vector3> a_lVertex, String a_sName)
 {
 	MyBOClass* pObject = new MyBOClass(a_lVertex);
-	if (pObject != nullptr)
-	{
+	if (pObject != nullptr){
 		m_lObject.push_back(pObject);//Add the Object
 		m_mapIndex[a_sName] = m_nObjectCount; //Add entry to the dictionary
 	}
+
 	m_nObjectCount = m_lObject.size();
 	std::vector<int> lVector;
 	m_llCollidingIndices.push_back(lVector);
@@ -81,6 +81,7 @@ void MyBOManager::SetModelMatrix(matrix4 a_mModelMatrix, String a_sIndex)
 		return;
 
 	m_lObject[nIndex]->SetModelMatrix(a_mModelMatrix);//set the matrix for the indexed Object
+	
 }
 void MyBOManager::DisplaySphere(String a_sName, vector3 a_v3Color)
 {

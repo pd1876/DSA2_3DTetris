@@ -56,7 +56,7 @@ public:
 	void SpawnShape();
 	void UpdateAllShapes();
 	void DisplayAllShapes();
-
+	void UpdateAllBOs();
 
 
 

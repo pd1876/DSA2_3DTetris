@@ -64,13 +64,20 @@ void AppClass::UpdateAllShapes() {
 }
 void AppClass::DisplayAllShapes() {
 	//This doesn't work for some reason
-
 	/*for (int i = 0; i < shapeCount; i++) {
 		std::cout << "Rendering shape: " << i << std::endl;
 		shapes[i].RenderBoxes(cam1);
 	}*/
 	
+	//Will need to change this for row clearing
 	currentShape->RenderBoxes(cam1);
+}
+void AppClass::UpdateAllBOs() {
+	for (int i = 0; i < shapeCount; i++) {
+		for (int j = 0; j < shapes[i].boxes.size(); j++) {
+			BO_Mngr->SetModelMatrix(shapes[i].boxes[i].transformMat, shapes[i].boxes[j].boxName);
+		}
+	}
 }
 void AppClass::Update(void)
 {
@@ -97,13 +104,7 @@ void AppClass::Update(void)
 		BO_Mngr->SetModelMatrix(currentShape->boxes[j].transformMat, std::to_string(j + 1));
 	}*/
 
-	for (int i = 0; i < shapeCount; i++) {
-		//std::cout << "Shape: " << i << std::endl;
-		for (int j = 0; j < shapes[i].boxes.size(); j++) {
-			//std::cout << "Box: " << j << std::endl;
-			BO_Mngr->SetModelMatrix(shapes[i].boxes[j].transformMat, std::to_string(shapes[i].boxes[j].boxID));
-		}
-	}
+	UpdateAllBOs();
 
 	BO_Mngr->Update();
 	BO_Mngr->DisplayReAlligned();
