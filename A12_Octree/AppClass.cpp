@@ -16,7 +16,7 @@ void AppClass::InitWindow(String a_sWindowName)
 
 void AppClass::InitVariables(void)
 {
-	SpawnCubes(600);
+	SpawnCubes(20);
 
 	// Set up the camera away from the cubes
 	m_pCameraMngr->SetPositionTargetAndView(
@@ -92,6 +92,8 @@ void AppClass::RenderOctree() {
 	Node* n = new Node();
 	n->center = _center;
 	n->halfWidth = halfWidth;
+	octree->displayOctree(n);
+
 	for (int i = 0; i < objs.size(); i++) {
 		octree->InsertObject(n, objs[i]);
 	}

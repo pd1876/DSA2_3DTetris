@@ -37,17 +37,28 @@ Octree* Octree::getInstance() {
 // 		return temp;
 // }
 
-Node* Octree::Divide(vector3 _center, vector3 _halfWidth, std::vector<BOClass*> objList) {
-	if (objList.size() == 0)
+Node* Octree::Divide(Node* node) {
+	if (node->objList.size() == 0)
 		return nullptr;
-
+	
 		Node* temp = new Node();
-		temp->center = _center;
-		temp->halfWidth = _halfWidth;
+		temp->center = node->center;
+		temp->halfWidth = node->halfWidth;
 
 		vector3 offset;
 		vector3 step = temp->halfWidth * 0.5f;
 
+		// Okay so here is how this is supposed to work and I just can't code it
+		/*
+			1) If the code makes it to here, that means there was more than 10 objects generated checked already
+			2) So it should first instatiate 8 children nodes, no questions asked
+			3) Then it checks, out of the objects already accounted for, who ended up in what child
+			4) After that it should keep going through the list of objects, but now by keeping track of all the children and each of them calling InsertObject
+			5) Then if a child reaches 11 objects registered in its area, the divide method gets called again.
+			6) And this all just keeps repeating until all the objects generated have been checked
+		*/
+
+/*
 		for (int i = 0; i < 8; i++) {
 			offset.x = ((i & 1) ? step.x : -step.x);
 			offset.y = ((i & 2) ? step.y : -step.y);
@@ -59,7 +70,7 @@ Node* Octree::Divide(vector3 _center, vector3 _halfWidth, std::vector<BOClass*> 
 			InsertObject(temp, objList[i]);
 			objList.pop_back();
 		}
-
+		*/
 		return temp;
 }
 
@@ -68,8 +79,7 @@ void Octree::InsertObject(Node* pTree, BOClass* object) {
 		pTree->objList.push_back(object);
 	}
 	else {
-		pTree->objList.push_back(object);
-		Divide(pTree->center, pTree->halfWidth, pTree->objList);
+		Divide(pTree);
 	}
 }
 

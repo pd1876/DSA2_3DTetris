@@ -30,7 +30,7 @@ public:
 	// build the octree
 	//Node* BuildOctree(vector3 _center, vector3 _halfWidth);
 
-	Node* Divide(vector3 _center, vector3 _halfWidth, std::vector<BOClass*> objList);
+	Node* Divide(Node* node);
 
 	void InsertObject(Node* pTree, BOClass* object);
 
