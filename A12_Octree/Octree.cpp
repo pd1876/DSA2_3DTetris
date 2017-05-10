@@ -19,28 +19,61 @@ Octree* Octree::getInstance() {
 	return instance;
 }
 
-void Octree::displayOctree(vector3 _center, vector3 _min, vector3 _max, vector3 _halfWidth, float counter) {
-	if (counter <= 0)
-		return;
-	else {
-		center = _center;
-		min = _min;
-		max = _max;
-		halfWidth = _halfWidth;
-		m_pMeshMngr->AddCubeToRenderList(glm::translate(IDENTITY_M4, center) *
-			glm::scale(halfWidth * 2.0f), REBLACK, WIRE);
+// Node* Octree::BuildOctree(vector3 _center, vector3 _halfWidth) {
+// 		Node* temp = new Node();
+// 		temp->center = _center;
+// 		temp->halfWidth = _halfWidth;
+// 
+// 		vector3 offset;
+// 		vector3 step = temp->halfWidth * 0.5f;
+// 
+// 		for (int i = 0; i < 8; i++) {
+// 			offset.x = ((i & 1) ? step.x : -step.x);
+// 			offset.y = ((i & 2) ? step.y : -step.y);
+// 			offset.z = ((i & 4) ? step.z : -step.z);
+// 			temp->nodes[i] = BuildOctree(temp->center + offset, step);
+// 		}
+// 
+// 		return temp;
+// }
 
-		displayOctree((_center + _min) / 2.0f, _min, _center, (_center - _min) / 2.0f, counter - 1);
+Node* Octree::Divide(vector3 _center, vector3 _halfWidth, std::vector<BOClass*> objList) {
+	if (objList.size() == 0)
+		return nullptr;
 
-		displayOctree((_center + _max) / 2.0f, _center, _max, (_max - _center) / 2.0f, counter - 1);
+		Node* temp = new Node();
+		temp->center = _center;
+		temp->halfWidth = _halfWidth;
 
-		displayOctree((_center + vector3(_max.x, _max.y, _min.z)) / 2.0f, _center, vector3(_max.x, _max.y, _min.z), (vector3(_max.x, _max.y, _min.z) - _center) / 2.0f, counter - 1);
+		vector3 offset;
+		vector3 step = temp->halfWidth * 0.5f;
 
-		displayOctree((_center + vector3(_min.x, _max.y, _min.z)) / 2.0f, (_min + vector3(_min.x, _max.y, _min.z)) / 2.0f,
-			(_center + vector3(0.0f, _max.y, 0.0f)) / 2.0f, (vector3(_max.x, _max.y, _min.z) - _center) / 2.0f, counter - 1);
+		for (int i = 0; i < 8; i++) {
+			offset.x = ((i & 1) ? step.x : -step.x);
+			offset.y = ((i & 2) ? step.y : -step.y);
+			offset.z = ((i & 4) ? step.z : -step.z);
+			temp->nodes[i] = Divide(temp->center + offset, step, objList);
+		}
 
-		displayOctree((_center + _min) / 2.0f, _min, _center, (_center - _min) / 2.0f, counter - 1);
+		for (int i = objList.size(); i > 0; i--) {
+			InsertObject(temp, objList[i]);
+			objList.pop_back();
+		}
 
-		return;
+		return temp;
+}
+
+void Octree::InsertObject(Node* pTree, BOClass* object) {
+	if (pTree->objList.size() <= pTree->maxObjects) {
+		pTree->objList.push_back(object);
 	}
-};
+	else {
+		pTree->objList.push_back(object);
+		Divide(pTree->center, pTree->halfWidth, pTree->objList);
+	}
+}
+
+void Octree::displayOctree(Node* node) {
+	m_pMeshMngr->AddCubeToRenderList(glm::translate(IDENTITY_M4, node->center) *
+		glm::scale(node->halfWidth * 2.0f), REBROWN, WIRE);
+}

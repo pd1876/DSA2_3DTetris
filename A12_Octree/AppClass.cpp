@@ -16,7 +16,7 @@ void AppClass::InitWindow(String a_sWindowName)
 
 void AppClass::InitVariables(void)
 {
-	SpawnCubes(650);
+	SpawnCubes(600);
 
 	// Set up the camera away from the cubes
 	m_pCameraMngr->SetPositionTargetAndView(
@@ -48,7 +48,7 @@ void AppClass::RenderOctree() {
 	vector3 _center;
 	vector3 _min;
 	vector3 _max;
-	vector3 _halfWidth;
+	std::vector<BOClass*> objs;
 
 	octree = Octree::getInstance();
 	
@@ -80,14 +80,21 @@ void AppClass::RenderOctree() {
 			else if (_max.z < cubeMax.z)//if max is smaller than cube's max
 				_max.z = cubeMax.z;
 		}
+
+		objs.push_back(cube);
 	}
 
 	// calculate the center
 	_center = (_max + _min) / 2.0f;
 
-	_halfWidth = (_max - _min) / 2.0f;
+	vector3 halfWidth = (_max - _min) / 2.0f;
 
-	octree->displayOctree(_center, _min, _max, _halfWidth, 3.0f);
+	Node* n = new Node();
+	n->center = _center;
+	n->halfWidth = halfWidth;
+	for (int i = 0; i < objs.size(); i++) {
+		octree->InsertObject(n, objs[i]);
+	}
 }
 void AppClass::UpdateCubes() {
 	for (int i = 0; i < numCubes; i++) {
@@ -125,7 +132,7 @@ void AppClass::Update(void)
 	// TODO print other stuff
 	//(x == y) ? a : b
 	m_pMeshMngr->PrintLine("Spatial Optimization :" + (spatialOptEnabled == true) ? "Enabled" : "Disabled");
-	m_pMeshMngr->PrintLine("FPS: " + nFPS);
+	m_pMeshMngr->PrintLine("FPS: " + std::to_string(nFPS));
 }
 
 void AppClass::Display(void) 

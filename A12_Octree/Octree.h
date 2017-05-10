@@ -1,15 +1,18 @@
 #pragma once
 #include "RE\ReEng.h"
+#include "BOClass.h"
+
+struct Node {
+	vector3 center;
+	vector3 halfWidth;
+	// list to hold nodes of tree
+	Node* nodes[8];
+	// list of contained items
+	std::vector<BOClass*> objList;
+	int maxObjects = 10;
+};
 
 class Octree {
-	// bounds of the octree
-	// All in global space
-	// Passed in by an object's global vectors
-	vector3 center = vector3(0.0f);
-	vector3 min = vector3(0.0f);
-	vector3 max = vector3(0.0f);
-	vector3 halfWidth = vector3(0.0f);
-
 	// whether to display the octree or not
 	bool active;
 
@@ -17,15 +20,23 @@ class Octree {
 
 	// static pointer to class
 	static Octree* instance;
+
 public:
 	Octree(void);
 
 	// Get Instance
 	static Octree* getInstance();
 
-	// display the octree
-	void displayOctree(vector3 _center, vector3 _min, vector3 _max, vector3 _halfWidth, float counter);
+	// build the octree
+	//Node* BuildOctree(vector3 _center, vector3 _halfWidth);
 
+	Node* Divide(vector3 _center, vector3 _halfWidth, std::vector<BOClass*> objList);
+
+	void InsertObject(Node* pTree, BOClass* object);
+
+	// display the octree
+	void displayOctree(Node* node);
+	
 	// Destructor
 	~Octree();
 };
