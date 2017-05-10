@@ -8,7 +8,7 @@ TetrisShape::TetrisShape() {
 TetrisShape::TetrisShape(MeshManagerSingleton * _meshManager){
 	//InitLineBoxes();
 	meshManager = _meshManager;
-	boxes.resize(20);
+	//boxes.resize(20);
 
 	mass = 1.0f;
 	velocity = vector3(0.01f);
@@ -44,11 +44,11 @@ void TetrisShape::InitLineBoxes() {
 	//See box constructor for explanation
 	myBoxCount = 5;
 
-	box1 = new Box(meshManager, 1);
-	box2 = new Box(meshManager, 2);
-	box3 = new Box(meshManager, 3);
-	box4 = new Box(meshManager, 4);
-	box5 = new Box(meshManager, 5);
+	box1 = new Box(meshManager, std::rand());
+	box2 = new Box(meshManager, std::rand());
+	box3 = new Box(meshManager, std::rand());
+	box4 = new Box(meshManager, std::rand());
+	box5 = new Box(meshManager, std::rand());
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
@@ -68,11 +68,11 @@ void TetrisShape::InitCrossBoxes() {
 
 	myBoxCount = 5;
 
-	box1 = new Box(meshManager, 1);
-	box2 = new Box(meshManager, 2);
-	box3 = new Box(meshManager, 3);
-	box4 = new Box(meshManager, 4);
-	box5 = new Box(meshManager, 5);
+	box1 = new Box(meshManager, std::rand());
+	box2 = new Box(meshManager, std::rand());
+	box3 = new Box(meshManager, std::rand());
+	box4 = new Box(meshManager, std::rand());
+	box5 = new Box(meshManager, std::rand());
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
@@ -97,11 +97,11 @@ void TetrisShape::InitZBoxes() {
 
 	myBoxCount = 5;
 
-	box1 = new Box(meshManager, 1);
-	box2 = new Box(meshManager, 2);
-	box3 = new Box(meshManager, 3);
-	box4 = new Box(meshManager, 4);
-	box5 = new Box(meshManager, 5);
+	box1 = new Box(meshManager, std::rand());
+	box2 = new Box(meshManager, std::rand());
+	box3 = new Box(meshManager, std::rand());
+	box4 = new Box(meshManager, std::rand());
+	box5 = new Box(meshManager, std::rand());
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
@@ -119,11 +119,11 @@ void TetrisShape::InitReverseZBoxes() {
 
 	myBoxCount = 5;
 
-	box1 = new Box(meshManager, 1);
-	box2 = new Box(meshManager, 2);
-	box3 = new Box(meshManager, 3);
-	box4 = new Box(meshManager, 4);
-	box5 = new Box(meshManager, 5);
+	box1 = new Box(meshManager, std::rand());
+	box2 = new Box(meshManager, std::rand());
+	box3 = new Box(meshManager, std::rand());
+	box4 = new Box(meshManager, std::rand());
+	box5 = new Box(meshManager, std::rand());
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
@@ -141,11 +141,11 @@ void TetrisShape::InitLBoxes() {
 
 	myBoxCount = 5;
 
-	box1 = new Box(meshManager, 1);
-	box2 = new Box(meshManager, 2);
-	box3 = new Box(meshManager, 3);
-	box4 = new Box(meshManager, 4);
-	box5 = new Box(meshManager, 5);
+	box1 = new Box(meshManager, std::rand());
+	box2 = new Box(meshManager, std::rand());
+	box3 = new Box(meshManager, std::rand());
+	box4 = new Box(meshManager, std::rand());
+	box5 = new Box(meshManager, std::rand());
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
@@ -163,11 +163,11 @@ void TetrisShape::InitReverseLBoxes() {
 
 	myBoxCount = 5;
 
-	box1 = new Box(meshManager, 1);
-	box2 = new Box(meshManager, 2);
-	box3 = new Box(meshManager, 3);
-	box4 = new Box(meshManager, 4);
-	box5 = new Box(meshManager, 5);
+	box1 = new Box(meshManager, std::rand());
+	box2 = new Box(meshManager, std::rand());
+	box3 = new Box(meshManager, std::rand());
+	box4 = new Box(meshManager, std::rand());
+	box5 = new Box(meshManager, std::rand());
 
 	boxes.push_back(*box1);
 	boxes.push_back(*box2);
@@ -182,15 +182,20 @@ void TetrisShape::InitReverseLBoxes() {
 	boxes[4].SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
 }
 void TetrisShape::RenderBoxes(MyCamera* renderCam) { 
-	//std::cout << "Num boxes to render: " << boxes.size() << std::endl;
+	//std::cout << "Num boxes to render: " << myBoxCount << std::endl;
 
 	for (int i = 0; i < myBoxCount; i++) {
-		//Rendering with primitive boxes
-		//boxes[i].boxModelPrim->Render(renderCam->GetProjection(false), renderCam->GetView(), boxes[i].transformMat);
 
+		//std::cout << "Rendering box: " << boxes[i].boxName << std::endl;
+		//std::cout << "Current box count: " << Box::globalBoxIDCount << std::endl;
+
+		  
 		//Rendering with models
-		meshManager->SetModelMatrix(boxes[i].transformMat, i);
+		meshManager->SetModelMatrix(boxes[i].transformMat, boxes[i].boxID);
 	}
+
+	//std::cout << "Done rendering boxes: " << myBoxCount << std::endl;
+
 }
 void TetrisShape::Fall() {
 	if (position.z < -22) {

@@ -1,16 +1,20 @@
 #include "Box.h"
 
+int Box::globalBoxIDCount = 0;
 
 //We give Box a pointer to the mesh manager that AppClass is using to render models so that Box can load the correct model in
-//we give Box an unique int that will identify each box for the mesh manager so that it knows which box to render. Kind of shitty but it is what it is
+//For now, the ID passed in does nothing and we just set the boxID to the globalBoxCount
 Box::Box(MeshManagerSingleton* _meshManager, int _boxID){
 	//Generate the Cube
 	/*boxModelPrim = new PrimitiveClass();
 	boxModelPrim->GenerateCube(2.0f, RERED);*/
 
-	boxName = std::to_string(_boxID);
-
+	boxName = std::to_string(Box::globalBoxIDCount);
+	boxID = Box::globalBoxIDCount;
+	std::cout << "Created box with id: " << boxID << std::endl;
 	_meshManager->LoadModel("Portal\\CompanionCube.bto", boxName);
+
+	globalBoxIDCount++;
 
 	//SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 }

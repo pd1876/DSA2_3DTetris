@@ -32,11 +32,13 @@ class AppClass : public ReEngAppClass
 	PrimitiveClass* m_pCone = nullptr;
 	PrimitiveClass* m_pCylinder = nullptr;
 
-	TetrisShape* testShape1 = nullptr;
+	TetrisShape* currentShape = nullptr;
+	int shapeCount = 0;
+
 	Box* testBox1 = nullptr;
 
 	// Array of blocks to keep track of our blocks
-	std::vector<TetrisShape> blocks;
+	std::vector<TetrisShape> shapes;
 
 	matrix4 m_m4Projection;
 	matrix4 m_m4View;
@@ -48,6 +50,15 @@ public:
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow) : super(hInstance, lpCmdLine, nCmdShow) {}
+	
+	
+	//Our stuff
+	void SpawnShape();
+	void UpdateAllShapes();
+	void DisplayAllShapes();
+
+
+
 
 	/*
 	InitWindow

@@ -4,11 +4,14 @@
 
 class Box{
 public: 
+	static int globalBoxIDCount; //Each box needs to have a unique id so we will increment this static int every time we spawn a box
+	
 	//TetrisShape* parentShape;
 	std::string modelFilePath;
 	
 	//Gets passed to the mesh manager singleton so it knows which box it is currently rendering
 	std::string boxName;
+	int boxID;
 
 	glm::mat4 parentTransformMat;
 	glm::mat4 transformMat;

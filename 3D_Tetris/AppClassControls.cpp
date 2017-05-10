@@ -22,41 +22,41 @@ void AppClass::ProcessKeyboard(void)
 
 	//Forward / Backward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		if(!keyDown) testShape1->Translate(glm::vec3(0.0f, 0.05f, 0.0f));
+		if(!keyDown) currentShape->Translate(glm::vec3(0.0f, 0.05f, 0.0f));
 		//cam1->MoveForward(0.2f);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		if (!keyDown) {
-			testShape1->Translate(glm::vec3(0.0f, -1, 0.0f));
+			currentShape->Translate(glm::vec3(0.0f, -1, 0.0f));
 			keyDown = true;
 		}
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		if (!keyDown) {
-			testShape1->Translate(glm::vec3(-1, 0.0f, 0.0f));
+			currentShape->Translate(glm::vec3(-1, 0.0f, 0.0f));
 			keyDown = true;
 		}
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		if (!keyDown) {
-			testShape1->Translate(glm::vec3(1, 0.0f, 0.0f));
+			currentShape->Translate(glm::vec3(1, 0.0f, 0.0f));
 			keyDown = true;
 		}
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if (!keyDown) {
-			testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), 1);
+			currentShape->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), 1);
 			keyDown = true;
 		}
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		if (!keyDown) {
-			testShape1->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), -1);
+			currentShape->Rotate(glm::vec3(0.0f, 1.0f, 0.0f), -1);
 			keyDown = true;
 		}
 	} else	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if (!keyDown) {
-			testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), 1);
+			currentShape->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), 1);
 			keyDown = true;
 		}
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if (!keyDown) {
-			testShape1->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), -1);
+			currentShape->Rotate(glm::vec3(1.0f, 0.0f, 0.0f), -1);
 			keyDown = true;
 		}
 	} else {

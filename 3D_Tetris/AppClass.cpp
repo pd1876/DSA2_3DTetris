@@ -5,11 +5,14 @@ void AppClass::InitWindow(String a_sWindowName)
 }
 void AppClass::InitVariables(void)
 {
+	//this needs to go here because its static and has to be defined outside of Box
+	//Box::globalBoxIDCount = 0;
+
 	//Make 6 cameras
 	cam1 = new MyCamera();
 
 	// Resize blocks array
-	blocks.resize(20); 
+	//shapes.resize(20); 
 
 	//Make the game manager. Currently just handles orienting the sides correctly
 	gameManager = new GameManager();
@@ -27,8 +30,6 @@ void AppClass::InitVariables(void)
 	leftPlane = new PrimitiveClass();
 	leftPlane->GeneratePlane(12.0f, RECYAN);
 
-	//Make a shape. This is what the player will be interacting with
-	testShape1 = new TetrisShape(m_pMeshMngr);
 
 	//Calculate the first projections
 	m_m4Projection = glm::perspective(45.0f, 1080.0f / 768.0f, 0.01f, 1000.0f);
@@ -36,11 +37,41 @@ void AppClass::InitVariables(void)
 
 	cam1->SetView(m_m4View);
 	BO_Mngr = MyBOManager::GetInstance();
-	for (int i = 0; i < testShape1->boxes.size(); i++) {
-		BO_Mngr->AddObject(testShape1->meshManager->GetVertexList(i),std::to_string(i+1));
+
+	SpawnShape();
+
+}
+void AppClass::SpawnShape() {
+	//Make a shape. This is what the player will be interacting with
+
+	//This might cause errors by having us try to access the same memory location or some shit. i don't really know how c++ works
+	currentShape = new TetrisShape(m_pMeshMngr);
+	
+	for (int i = 0; i < currentShape->boxes.size(); i++) {
+		BO_Mngr->AddObject(currentShape->meshManager->GetVertexList(i), currentShape->boxes[i].boxName);
+	}
+
+	shapeCount++;
+	shapes.push_back(*currentShape);
+}
+void AppClass::UpdateAllShapes() {
+	currentShape->Fall();
+
+	//If our current shape has stopped, spawn in a new one
+	if (!currentShape->isFalling) {
+		SpawnShape();
 	}
 }
+void AppClass::DisplayAllShapes() {
+	//This doesn't work for some reason
 
+	/*for (int i = 0; i < shapeCount; i++) {
+		std::cout << "Rendering shape: " << i << std::endl;
+		shapes[i].RenderBoxes(cam1);
+	}*/
+	
+	currentShape->RenderBoxes(cam1);
+}
 void AppClass::Update(void)
 {
 	//Update the system's time
@@ -52,21 +83,31 @@ void AppClass::Update(void)
 	float deltaTime = m_pSystem->LapClock(); // Laps selected clock
 	gameTimer += deltaTime; // Adds delta time to current clock
 
-	//Test moving the shape
-	//testShape1->Translate(glm::vec3(0.0f, 0.0f, -0.05f));
 
 	// Test the shapes falling
-	testShape1->Fall();
+	//currentShape->Fall();
+	UpdateAllShapes();
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
+	//std::cout << "Shapes: " << shapeCount << std::endl;
 
-	for (int i = 0; i < testShape1->boxes.size(); i++) {
-		BO_Mngr->SetModelMatrix(testShape1->boxes[i].transformMat, std::to_string(i + 1));
+	/*for (int j = 0; j < currentShape->boxes.size(); j++) {
+		//std::cout << "Box: " << j << std::endl;
+		BO_Mngr->SetModelMatrix(currentShape->boxes[j].transformMat, std::to_string(j + 1));
+	}*/
+
+	for (int i = 0; i < shapeCount; i++) {
+		//std::cout << "Shape: " << i << std::endl;
+		for (int j = 0; j < shapes[i].boxes.size(); j++) {
+			//std::cout << "Box: " << j << std::endl;
+			BO_Mngr->SetModelMatrix(shapes[i].boxes[j].transformMat, std::to_string(shapes[i].boxes[j].boxID));
+		}
 	}
+
 	BO_Mngr->Update();
 	BO_Mngr->DisplayReAlligned();
-	//BO_Mngr->DisplayOriented(-1,REWHITE);
+
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList("Skybox_Tetris.png");
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -86,13 +127,14 @@ void AppClass::Display(void){
 	//Render the grid
 	m_pMeshMngr->AddGridToRenderList(1.0f, REAXIS::XY);
 
+	DisplayAllShapes();
+
 	//Render the sides of the play area. Eventually should be blackboxed in GameManager
 	topPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->topPlaneTransform);
 	bottomPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->bottomPlaneTransform);
 	rightPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->rightPlaneTransform);
 	leftPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->leftPlaneTransform);
 
-	testShape1->RenderBoxes(cam1);
 
 	m_pMeshMngr->Render(); //renders the render list
 	m_pMeshMngr->ClearRenderList(); //Reset the Render list after render
@@ -102,7 +144,7 @@ void AppClass::Display(void){
 void AppClass::Release(void)
 {
 	//Release the memory of the member fields
-	SafeDelete(testShape1);
+	SafeDelete(currentShape);
 	SafeDelete(m_pCube);
 	SafeDelete(cam1);
 
@@ -112,7 +154,7 @@ void AppClass::Release(void)
 	SafeDelete(leftPlane);
 
 	SafeDelete(gameManager);
-	SafeDelete(testShape1);
+	SafeDelete(currentShape);
 	//Release the memory of the inherited fields
 	super::Release(); 
 }
