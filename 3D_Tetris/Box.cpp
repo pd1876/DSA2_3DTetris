@@ -11,7 +11,6 @@ Box::Box(MeshManagerSingleton* _meshManager, int _boxID){
 
 	boxName = std::to_string(Box::globalBoxIDCount);
 	boxID = Box::globalBoxIDCount;
-	std::cout << "Created box with id: " << boxID << std::endl;
 	_meshManager->LoadModel("Portal\\CompanionCube.bto", boxName);
 
 	globalBoxIDCount++;

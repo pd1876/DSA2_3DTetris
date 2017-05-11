@@ -1,7 +1,7 @@
 #include "AppClass.h"
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("GIt GUD ScRUB"); // Window Name
+	super::InitWindow("Sticky 3D Tetris"); // Window Name
 }
 void AppClass::InitVariables(void)
 {
@@ -16,20 +16,6 @@ void AppClass::InitVariables(void)
 
 	//Make the game manager. Currently just handles orienting the sides correctly
 	gameManager = new GameManager();
-
-	//Generate the sides of the play area. Generating them here for now but eventually they should go in GameManager
-	topPlane = new PrimitiveClass();
-	topPlane->GeneratePlane(12.0f, REBLUE);
-	
-	bottomPlane = new PrimitiveClass();
-	bottomPlane->GeneratePlane(12.0f, REGREEN);
-
-	rightPlane = new PrimitiveClass();
-	rightPlane->GeneratePlane(12.0f, REYELLOW);
-
-	leftPlane = new PrimitiveClass();
-	leftPlane->GeneratePlane(12.0f, RECYAN);
-
 
 	//Calculate the first projections
 	m_m4Projection = glm::perspective(45.0f, 1080.0f / 768.0f, 0.01f, 1000.0f);
@@ -75,7 +61,6 @@ void AppClass::DisplayAllShapes() {
 void AppClass::UpdateAllBOs() {
 	for (int i = 0; i < shapes.size(); i++) {
 		for (int j = 0; j < shapes[i].boxes.size(); j++) {
-			std::cout << "Displaying BO for box " << shapes[i].boxes[j].boxName <<std::endl;
 			BO_Mngr->SetModelMatrix(shapes[i].boxes[j].transformMat, shapes[i].boxes[j].boxName);
 			BO_Mngr->DisplayReAlligned(shapes[i].boxes[j].boxName, RERED);
 			//BO_Mngr->DisplayOriented(shapes[i].boxes[j].boxName, RERED);
@@ -105,6 +90,10 @@ void AppClass::Update(void)
 	for (int j = 0; j < currentShape->boxes.size(); j++) {
 		//std::cout << "Box: " << j << std::endl;
 		BO_Mngr->SetModelMatrix(currentShape->boxes[j].transformMat, std::to_string(currentShape->boxes[j].boxID));
+
+		if (j % 4 == 0) {
+			score++;
+		}
 	}
 
 	//UpdateAllBOs();
@@ -118,7 +107,8 @@ void AppClass::Update(void)
 
 	m_pMeshMngr->PrintLine("3D Tetris", REBLACK);
 	m_pMeshMngr->PrintLine("Level: 1"); // Currently hardcoding to see it, will fix later
-	m_pMeshMngr->PrintLine("Score: 0"); // See above
+	m_pMeshMngr->Print("Score: "); // See above
+	m_pMeshMngr->PrintLine(std::to_string(score));
 	m_pMeshMngr->Print("Time passed: ");
 	m_pMeshMngr->PrintLine(std::to_string(gameTimer)); // Let's player see game time
 	
@@ -134,10 +124,6 @@ void AppClass::Display(void){
 	DisplayAllShapes();
 
 	//Render the sides of the play area. Eventually should be blackboxed in GameManager
-	topPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->topPlaneTransform);
-	bottomPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->bottomPlaneTransform);
-	rightPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->rightPlaneTransform);
-	leftPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->leftPlaneTransform);
 
 
 	m_pMeshMngr->Render(); //renders the render list
@@ -148,15 +134,7 @@ void AppClass::Display(void){
 void AppClass::Release(void)
 {
 	//Release the memory of the member fields
-	SafeDelete(currentShape);
-	SafeDelete(m_pCube);
 	SafeDelete(cam1);
-
-	SafeDelete(topPlane);
-	SafeDelete(bottomPlane);
-	SafeDelete(rightPlane);
-	SafeDelete(leftPlane);
-
 	SafeDelete(gameManager);
 	SafeDelete(currentShape);
 	//Release the memory of the inherited fields

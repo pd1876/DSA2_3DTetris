@@ -20,17 +20,9 @@ class AppClass : public ReEngAppClass
 {
 	bool keyDown;
 
+	int score;
+
 	GameManager* gameManager = nullptr;
-
-	//Sides of the game
-	PrimitiveClass* topPlane = nullptr;
-	PrimitiveClass* bottomPlane = nullptr;
-	PrimitiveClass* rightPlane = nullptr;
-	PrimitiveClass* leftPlane = nullptr;
-
-	PrimitiveClass* m_pCube = nullptr;
-	PrimitiveClass* m_pCone = nullptr;
-	PrimitiveClass* m_pCylinder = nullptr;
 
 	TetrisShape* currentShape = nullptr;
 	int shapeCount = 0;

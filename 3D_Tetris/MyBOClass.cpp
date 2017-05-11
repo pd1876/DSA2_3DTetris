@@ -237,3 +237,8 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 
 	return true;
 }
+void MyBOClass::AddToRenderList(void)
+{
+	m_pMeshMngr->AddCubeToRenderList(m_m4ToWorld * glm::translate(m_v3Center) * glm::scale(m_v3HalfWidth * 2.0f), REWHITE, WIRE);
+	m_pMeshMngr->AddCubeToRenderList(glm::translate(m_v3CenterG) * glm::scale(m_v3HalfWidthG * 2.0f), RERED, WIRE);
+}
