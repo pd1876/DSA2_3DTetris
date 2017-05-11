@@ -157,6 +157,12 @@ public:
 	OUTPUT: ---
 	*/
 	void DisplayReAlligned(vector3 a_v3Color = REDEFAULT);
+	/*
+	USAGE: Adds the bounding box to the render list
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void AddToRenderList(void);
 
 private:
 	/*

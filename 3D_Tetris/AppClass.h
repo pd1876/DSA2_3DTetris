@@ -11,6 +11,7 @@ Date: 2015/09
 #include "TetrisShape.h"
 #include "Camera.h"
 #include "MyBOManager.h"
+#include "MyEntityClass.h"
 
 //#include <chrono>
 
@@ -22,15 +23,13 @@ class AppClass : public ReEngAppClass
 
 	GameManager* gameManager = nullptr;
 
-	//Sides of the game
-	PrimitiveClass* topPlane = nullptr;
-	PrimitiveClass* bottomPlane = nullptr;
-	PrimitiveClass* rightPlane = nullptr;
-	PrimitiveClass* leftPlane = nullptr;
-
-	PrimitiveClass* m_pCube = nullptr;
-	PrimitiveClass* m_pCone = nullptr;
-	PrimitiveClass* m_pCylinder = nullptr;
+	// The Game Walls
+	MyEntityClass* m_pWall_Bottom = nullptr;
+	MyEntityClass* m_pWall_Top = nullptr;
+	MyEntityClass* m_pWall_Left = nullptr;
+	MyEntityClass* m_pWall_Right = nullptr;
+	MyEntityClass* m_pFloor = nullptr;
+	MyEntityClass* m_pCube = nullptr;
 
 	TetrisShape* currentShape = nullptr;
 	int shapeCount = 0;

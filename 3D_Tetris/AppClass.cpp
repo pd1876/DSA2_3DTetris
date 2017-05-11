@@ -18,18 +18,31 @@ void AppClass::InitVariables(void)
 	gameManager = new GameManager();
 
 	//Generate the sides of the play area. Generating them here for now but eventually they should go in GameManager
-	topPlane = new PrimitiveClass();
-	topPlane->GeneratePlane(12.0f, REBLUE);
-	
-	bottomPlane = new PrimitiveClass();
-	bottomPlane->GeneratePlane(12.0f, REGREEN);
+	m_pMeshMngr->LoadModel("tetris_pieces\\checkered_wall.obj", "wall_bottom");
+	m_pMeshMngr->LoadModel("tetris_pieces\\checkered_wall.obj", "wall_top");
+	m_pMeshMngr->LoadModel("tetris_pieces\\checkered_wall.obj", "wall_left");
+	m_pMeshMngr->LoadModel("tetris_pieces\\checkered_wall.obj", "wall_right");
+	m_pMeshMngr->LoadModel("tetris_pieces\\checkered_wall.obj", "floor");
+	m_pMeshMngr->LoadModel("Portal\\CompanionCube.bto", "cube");
 
-	rightPlane = new PrimitiveClass();
-	rightPlane->GeneratePlane(12.0f, REYELLOW);
+	m_pWall_Bottom = new MyEntityClass("wall_bottom");
+	m_pWall_Bottom->SetModelMatrix(glm::rotate(IDENTITY_M4, 90.0f, REAXISX) * glm::translate(0.0f, 0.0f, 2.0f));
 
-	leftPlane = new PrimitiveClass();
-	leftPlane->GeneratePlane(12.0f, RECYAN);
+	m_pWall_Top = new MyEntityClass("wall_top");
+	m_pWall_Top->SetModelMatrix(glm::rotate(IDENTITY_M4, 90.0f, REAXISX) * glm::translate(0.0f, 0.0f, -2.0f));
 
+	m_pWall_Left = new MyEntityClass("wall_left");
+	m_pWall_Left->SetModelMatrix(glm::rotate(IDENTITY_M4, 90.0f, REAXISY) * glm::translate(0.0f, 0.0f, 2.0f));
+
+	m_pWall_Right = new MyEntityClass("wall_right");
+	m_pWall_Right->SetModelMatrix(glm::rotate(IDENTITY_M4, 90.0f, REAXISY) * glm::translate(0.0f, 0.0f, -2.0f));
+
+	m_pFloor = new MyEntityClass("floor");
+	m_pFloor->SetModelMatrix(glm::translate(0.0f, 0.0f, -2.0f));
+
+	m_pCube = new MyEntityClass("cube");
+	m_pCube->SetModelMatrix(glm::translate(0.0f, 0.0f, 0.0f));
+	m_pCube->SetVelocity(vector3(0.25f, 0.25f, 0.0f));
 
 	//Calculate the first projections
 	m_m4Projection = glm::perspective(45.0f, 1080.0f / 768.0f, 0.01f, 1000.0f);
@@ -37,8 +50,6 @@ void AppClass::InitVariables(void)
 
 	cam1->SetView(m_m4View);
 	BO_Mngr = MyBOManager::GetInstance();
-
-	SpawnShape();
 
 }
 void AppClass::SpawnShape() {
@@ -95,26 +106,44 @@ void AppClass::Update(void)
 
 
 	// Test the shapes falling
-	//currentShape->Fall();
-	UpdateAllShapes();
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
 	//std::cout << "Shapes: " << shapeCount << std::endl;
+	UpdateAllShapes();
 
-	for (int j = 0; j < currentShape->boxes.size(); j++) {
-		//std::cout << "Box: " << j << std::endl;
-		BO_Mngr->SetModelMatrix(currentShape->boxes[j].transformMat, std::to_string(currentShape->boxes[j].boxID));
+	m_pCube->Update();
+
+	// Lets made some collision detection
+	if (m_pCube->IsColliding(m_pWall_Bottom)) {
+		vector3 v3Velocity = m_pCube->GetVelocity();
+		v3Velocity.y *= -1;
+		m_pCube->SetVelocity(v3Velocity);
 	}
-
-	//UpdateAllBOs();
-
-	BO_Mngr->Update();
-	BO_Mngr->DisplayReAlligned();
+	if (m_pCube->IsColliding(m_pWall_Top)) {
+		vector3 v3Velocity = m_pCube->GetVelocity();
+		v3Velocity.y *= -1;
+		m_pCube->SetVelocity(v3Velocity);
+	}
+	if (m_pCube->IsColliding(m_pWall_Left)) {
+		vector3 v3Velocity = m_pCube->GetVelocity();
+		v3Velocity.x *= -1;
+		m_pCube->SetVelocity(v3Velocity);
+	}
+	if (m_pCube->IsColliding(m_pWall_Right)) {
+		vector3 v3Velocity = m_pCube->GetVelocity();
+		v3Velocity.x *= -1;
+		m_pCube->SetVelocity(v3Velocity);
+	}
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList("Skybox_Tetris.png");
-	m_pMeshMngr->AddInstanceToRenderList("ALL");
+	m_pWall_Bottom->AddToRenderList(true);
+	m_pWall_Top->AddToRenderList(true);
+	m_pWall_Left->AddToRenderList(true);
+	m_pWall_Right->AddToRenderList(true);
+	m_pFloor->AddToRenderList(true);	
+	m_pCube->AddToRenderList(true);
 
 	m_pMeshMngr->PrintLine("3D Tetris", REBLACK);
 	m_pMeshMngr->PrintLine("Level: 1"); // Currently hardcoding to see it, will fix later
@@ -130,16 +159,6 @@ void AppClass::Display(void){
 	
 	//Render the grid
 	m_pMeshMngr->AddGridToRenderList(1.0f, REAXIS::XY);
-
-	DisplayAllShapes();
-
-	//Render the sides of the play area. Eventually should be blackboxed in GameManager
-	topPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->topPlaneTransform);
-	bottomPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->bottomPlaneTransform);
-	rightPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->rightPlaneTransform);
-	leftPlane->Render(cam1->GetProjection(false), cam1->GetView(), gameManager->leftPlaneTransform);
-
-
 	m_pMeshMngr->Render(); //renders the render list
 	m_pMeshMngr->ClearRenderList(); //Reset the Render list after render
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
@@ -149,14 +168,13 @@ void AppClass::Release(void)
 {
 	//Release the memory of the member fields
 	SafeDelete(currentShape);
-	SafeDelete(m_pCube);
 	SafeDelete(cam1);
-
-	SafeDelete(topPlane);
-	SafeDelete(bottomPlane);
-	SafeDelete(rightPlane);
-	SafeDelete(leftPlane);
-
+	SafeDelete(m_pWall_Bottom);
+	SafeDelete(m_pWall_Top);
+	SafeDelete(m_pWall_Left);
+	SafeDelete(m_pWall_Right);
+	SafeDelete(m_pFloor);
+	SafeDelete(m_pCube);
 	SafeDelete(gameManager);
 	SafeDelete(currentShape);
 	//Release the memory of the inherited fields
