@@ -35,7 +35,7 @@ void AppClass::InitVariables(void)
 	m_pWall_Left->SetModelMatrix(glm::rotate(IDENTITY_M4, 90.0f, REAXISY) * glm::translate(0.0f, 0.0f, 2.0f));
 
 	m_pWall_Right = new MyEntityClass("wall_right");
-	m_pWall_Right->SetModelMatrix(glm::rotate(IDENTITY_M4, 90.0f, REAXISY) * glm::translate(0.0f, 0.0f, -2.0f));
+	m_pWall_Right->SetModelMatrix(glm::scale(vector3(0.0f, 2.0f, 0.0f)) * glm::rotate(IDENTITY_M4, 90.0f, REAXISY) * glm::translate(0.0f, 0.0f, -2.0f));
 
 	m_pFloor = new MyEntityClass("floor");
 	m_pFloor->SetModelMatrix(glm::translate(0.0f, 0.0f, -2.0f));
